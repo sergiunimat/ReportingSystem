@@ -12,7 +12,9 @@ using ReportSystem.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ReportSystem.Interfaces;
 using ReportSystem.Models;
+using ReportSystem.Services;
 
 namespace ReportSystem
 {
@@ -32,6 +34,7 @@ namespace ReportSystem
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -44,10 +47,13 @@ namespace ReportSystem
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
             });
+
+            /*I: register/map services to interface */
+            services.AddScoped<IRoleService, RoleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -75,6 +81,11 @@ namespace ReportSystem
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            var _roleService = serviceProvider.GetRequiredService<IRoleService>();
+
+            _roleService.CreateRoleIfDoesNotExist(Role.Administrator).Wait();
+            _roleService.CreateRoleIfDoesNotExist(Role.Investigator).Wait();
+            _roleService.CreateRoleIfDoesNotExist(Role.Reporter).Wait();
         }
     }
 }
