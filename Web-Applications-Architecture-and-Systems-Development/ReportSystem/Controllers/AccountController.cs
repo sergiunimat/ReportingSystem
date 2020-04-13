@@ -40,7 +40,8 @@ namespace ReportSystem.Controllers
                 };
                
                var result = await _userManager.CreateAsync(user, model.Password);
-               if (result.Succeeded)
+               await _userManager.AddToRoleAsync(user, Role.Reporter);
+                if (result.Succeeded)
                {
                    /*we are sign in the user with a session cookie i.e. when browser is closed the cookie is destroyed*/
                    await _signInManager.SignInAsync(user,isPersistent:false);
