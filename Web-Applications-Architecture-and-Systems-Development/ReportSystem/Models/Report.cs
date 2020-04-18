@@ -13,5 +13,6 @@ namespace ReportSystem.Models
         public string ReportPicturePath { get; set; }
         public ApplicationUser ReportReporter { get; set; }
         public ApplicationUser ReportInvestigator { get; set; }
+        public Investigation Investigation { get; set; }
     }
 }
