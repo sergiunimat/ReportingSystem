@@ -37,7 +37,8 @@ namespace ReportSystem
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings

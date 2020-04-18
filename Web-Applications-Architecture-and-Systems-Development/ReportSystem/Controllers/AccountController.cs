@@ -34,9 +34,9 @@ namespace ReportSystem.Controllers
             {
                 var user = new ApplicationUser()
                 {
-                    UserName = model.Email,
+                    UserName = model.Name,
                     Email = model.Email,
-                    UserAddress = model.City
+                    UserAddress = model.Address
                 };
                
                var result = await _userManager.CreateAsync(user, model.Password);
