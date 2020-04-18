@@ -47,6 +47,7 @@ namespace ReportSystem
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
             });
+            services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
 
             /*I: register/map services to interface */
             services.AddScoped<IRoleService, RoleService>();
