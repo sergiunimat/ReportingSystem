@@ -11,5 +11,7 @@ namespace ReportSystem.Models
         public String ReportTitle { get; set; }
         public string ReportDescription { get; set; }
         public string ReportPicturePath { get; set; }
+        public ApplicationUser ReportReporter { get; set; }
+        public ApplicationUser ReportInvestigator { get; set; }
     }
 }
