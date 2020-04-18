@@ -14,5 +14,6 @@ namespace ReportSystem.Models
         public ApplicationUser ReportReporter { get; set; }
         public ApplicationUser ReportInvestigator { get; set; }
         public Investigation Investigation { get; set; }
+        public Hazard Hazard { get; set; }
     }
 }
