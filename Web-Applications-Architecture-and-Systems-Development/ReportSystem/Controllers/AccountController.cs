@@ -36,7 +36,7 @@ namespace ReportSystem.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    City = model.City
+                    UserAddress = model.City
                 };
                
                var result = await _userManager.CreateAsync(user, model.Password);
