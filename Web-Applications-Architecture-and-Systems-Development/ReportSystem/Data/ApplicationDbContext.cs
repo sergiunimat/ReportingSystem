@@ -13,5 +13,7 @@ namespace ReportSystem.Data
             : base(options)
         {
         }
+
+        public DbSet<Report> Reports { get; set; }
     }
 }
