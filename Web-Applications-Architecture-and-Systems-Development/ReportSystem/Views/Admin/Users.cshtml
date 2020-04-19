@@ -11,37 +11,84 @@
         <div class="table-responsive table-responsive-sm table-responsive-lg table-responsive-xl table-responsive-md">
             <table class="table table-hover">
                 <thead class="thead-dark">
-                <tr colspan="6" class="bg-secondary">
-                    <img class="d-inline" src="https://img.icons8.com/bubbles/100/000000/couple-icloud.png"/>
-                    <p class="h2 d-inline">USERS</p>
-                    <a class="shadow-animation float-right" asp-action="Index" asp-controller="Admin">
-                        <img src="https://img.icons8.com/bubbles/100/000000/long-arrow-left.png"/>
-                    </a>
-                </tr>
-                <tr>
-                    <th class="text-center" scope="col">Role</th>
-                    <th class="text-center" scope="col">Name</th>
-                    <th class="text-center" scope="col">Email</th>
-                    <th class="text-center" scope="col">Address</th>
-                    <th class="text-center" scope="col">Edit</th>
-                    <th class="text-center" scope="col">Delete</th>
-                </tr>
+                    <tr colspan="6" class="bg-secondary">
+                        <img class="d-inline" src="https://img.icons8.com/bubbles/80/000000/people-group-bill--v1.png" />
+                        <p class="h2 d-inline">USERS</p>
+                        <a class="shadow-animation float-right" asp-action="Index" asp-controller="Admin">
+                            <img src="https://img.icons8.com/bubbles/80/000000/long-arrow-left.png" />
+                        </a>
+                    </tr>
+                    <tr>
+                        <th class="text-center" scope="col">Role</th>
+                        <th class="text-center" scope="col">Name</th>
+                        <th class="text-center" scope="col">Email</th>
+                        <th class="text-center" scope="col">Address</th>
+                        <th class="text-center" scope="col">Edit</th>
+                        <th class="text-center" scope="col">Delete</th>
+                    </tr>
                 </thead>
                 <tbody style="max-height: 30px">
-                   @foreach (var user in Model)
-                   {
-                       <tr>
-                           <th class="text-center"><img src="https://img.icons8.com/bubbles/50/000000/add-file.png" /></th>
-                           <td class="text-center">@user.UserName</td>
-                           <td class="text-center">@user.Email</td>
-                           <td class="text-center">@user.UserAddress</td>
-                           <td class="shadow-animation text-center"><img src="https://img.icons8.com/bubbles/50/000000/edit-property.png" /></td>
-                           <td class="shadow-animation text-center"><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" /></td>
-                       </tr>
-                   }
+                    @foreach (var user in Model)
+                    {
+                    <tr>
+                        <th class="text-center"><img src="https://img.icons8.com/bubbles/50/000000/add-file.png" /></th>
+                        <td class="text-center">@user.UserName</td>
+                        <td class="text-center">@user.Email</td>
+                        <td class="text-center">@user.UserAddress</td>
+                        <td data-toggle="modal" data-target="#editUserModal" class="shadow-animation text-center" onclick="userAjaxRequest('@user.Id')"><img src="https://img.icons8.com/bubbles/50/000000/edit-property.png" /></td>
+                        @*<td class="text-center"><a class="btn btn-light border-secondary w-100" href="#" data-toggle="modal" data-target="#editUserModal" onclick="userAjaxRequest(@user.Id)" style="color: black;">
+                            <div class="mx-auto w-100 ">
+                                <p style="font-size: medium" class="p-0 m-0">Edit</p>
+                            </div>
+                        </a></td>*@
+                        <td class="shadow-animation text-center"><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" /></td>
+                    </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </div>
     <div class="col-1"></div>
 </div>
+
+<!-- User Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="editUserResponse" class="modal-body">
+
+                ...
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        function userAjaxRequest(userId) {
+            $.ajax({
+                url: window.location.origin + "/Admin/EditUser?userId=" + userId,
+                type: "GET",
+
+                complete: function (result) {
+                    console.log(result.responseText);
+
+                    //var x = document.getElementById("modelompany");
+                    //x.style.display = "block";
+                    $("#editUserResponse").html(result.responseText);
+
+                }
+            });
+        }
+
+    </script>

@@ -30,5 +30,12 @@ namespace ReportSystem.Controllers
             var userList = _userManager.Users;   
             return View(userList);
         }
+        [HttpGet]
+        public IActionResult EditUser(string userId)
+        {
+            var userList = _userManager.Users;
+            return ViewComponent("EditUser",new{userId=userId});
+        }
+
     }
 }
