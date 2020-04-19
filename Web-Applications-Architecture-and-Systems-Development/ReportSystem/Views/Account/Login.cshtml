@@ -14,14 +14,6 @@
                 <h1 class="d-flex justify-content-center text-white">Sign In</h1>
             </div>
 
-            @*<div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Email">Email address</label>
-            <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp" placeholder="Enter email">
-            <span asp-validation-for="Email" class="text-danger"></span>
-            <small id="emailHelp" class="form-text text-muted">Enter your account email</small>
-        </div>*@
-
             <span asp-validation-for="Name" class="text-danger float-left font-italic"></span>
             <small class="form-text text-muted font-italic float-right">Enter your name</small>
             <div class="input-group mb-3">
@@ -30,15 +22,6 @@
                 </div>
                 <input type="text" class="form-control" asp-for="Name" aria-describedby="userName" placeholder="">
             </div>
-
-
-
-            @*<div class="form-group">
-            <label asp-for="Password">Password</label>
-            <input type="password" class="form-control" asp-for="Password" placeholder="Password">
-            <span asp-validation-for="Password" class="text-danger"></span>
-            <small class="form-text text-muted">Enter your account password</small>
-        </div>*@
 
             <span asp-validation-for="Password" class="text-danger float-left font-italic"></span>
             <small class="form-text text-muted font-italic float-right">Enter password</small>
@@ -49,14 +32,6 @@
                 <input type="password" class="form-control" asp-for="Password" aria-describedby="userPassword" placeholder="">
             </div>
 
-
-
-            @*<div class="form-check">
-                <input type="checkbox" class="form-check-input" asp-for="RememberMe">
-                <label class="form-check-label" asp-for="RememberMe">Remember me</label>
-                <small class="form-text text-muted">This option allows to store the user logged in. - this decrease the security.</small>
-            </div>*@
-
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
@@ -66,11 +41,8 @@
                 <input readonly="readonly" value="Note, this option allows to store the user logged in. - this decrease the security." type="text" class="form-control font-italic h6" aria-label="Text input with checkbox">
             </div>
 
-
-
-
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Sign In</button>
                 <a asp-action="PasswordRecovery">Forgot Password?</a>
             </div>
         </form>
