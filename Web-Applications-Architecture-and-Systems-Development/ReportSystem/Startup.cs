@@ -57,6 +57,7 @@ namespace ReportSystem
 
             /*I: register/map services to interface */
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +90,9 @@ namespace ReportSystem
                 endpoints.MapRazorPages();
             });
             var _roleService = serviceProvider.GetRequiredService<IRoleService>();
+            var _userService = serviceProvider.GetRequiredService<IUserService>();
 
+            _userService.CreatePowerUserIfDoesNotExist().Wait();
             _roleService.CreateRoleIfDoesNotExist(Role.Administrator).Wait();
             _roleService.CreateRoleIfDoesNotExist(Role.Investigator).Wait();
             _roleService.CreateRoleIfDoesNotExist(Role.Reporter).Wait();
