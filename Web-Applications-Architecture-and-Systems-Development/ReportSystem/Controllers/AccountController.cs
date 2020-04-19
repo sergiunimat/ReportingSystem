@@ -36,23 +36,30 @@ namespace ReportSystem.Controllers
                 {
                     UserName = model.Name,
                     Email = model.Email,
-                    UserAddress = model.Address
+                    UserAddress = model.Address,
+                    EmailConfirmed = true
                 };
                
                var result = await _userManager.CreateAsync(user, model.Password);
                await _userManager.AddToRoleAsync(user, Role.Reporter);
                 if (result.Succeeded)
-               {
-                   /*we are sign in the user with a session cookie i.e. when browser is closed the cookie is destroyed*/
-                   await _signInManager.SignInAsync(user,isPersistent:false);
-                   return RedirectToAction("Index", "Home");
-               }
+                {
+                    ///*I: generate email confirmation token*/
+                    //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    ///*I: build confirmation link*/
+                    //var emailConfirmationLink = Url.Action("ConfirmMail", "Account",
+                    //    new { userId = user.Id, token = token }, Request.Scheme);
 
-               foreach (var err in result.Errors)
-               {
-                   /*I: this will display all the errors in the Register view in the div with the attr asp-validation-summary="All"*/
-                   ModelState.AddModelError("",err.Description);
-               }
+                    /*we are sign in the user with a session cookie i.e. when browser is closed the cookie is destroyed*/
+                    await _signInManager.SignInAsync(user,isPersistent:false);
+                   return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var err in result.Errors)
+                {
+                    /*I: this will display all the errors in the Register view in the div with the attr asp-validation-summary="All"*/
+                    ModelState.AddModelError("",err.Description);
+                }
             }
             return View(model);
         }
@@ -76,9 +83,11 @@ namespace ReportSystem.Controllers
             {
                 /*This is necessary since the userName and email are different and just by using model.Email it will throw an error
                     this way we are getting the username and fetch it in the fist parameter.*/
-                var signedUser = _userManager.FindByEmailAsync(model.Email);
+
+                //var signedUser = _userManager.FindByEmailAsync(model.Email);
+
                 /*something is bad here since the we do not succeed.*/
-                var result = await _signInManager.PasswordSignInAsync(signedUser.Result.UserName, model.Password,isPersistent:model.RememberMe,false);
+                var result = await _signInManager.PasswordSignInAsync(model.Name, model.Password,isPersistent:model.RememberMe,false);
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(returnUrl))
@@ -94,6 +103,16 @@ namespace ReportSystem.Controllers
                 ModelState.AddModelError("", "We are sorry, something went wrong while logging in.");
             }
             return View(model);
+        }
+
+        public IActionResult ConfirmMail(string userid, string token)
+        {
+            return View();
+        }
+
+        public IActionResult PasswordRecovery()
+        {
+            throw new NotImplementedException();
         }
     }
 }
