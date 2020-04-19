@@ -51,6 +51,7 @@
                 </div>
                 <input type="password" class="form-control" asp-for="Password" aria-describedby="userPassword" placeholder="">
             </div>
+
             <span asp-validation-for="ConfirmPassword" class="text-muted float-left font-italic"></span>
             <small class="form-text text-muted font-italic float-right">Confirm password</small>
             <div class="input-group mb-3">
@@ -60,13 +61,12 @@
                 <input type="password" class="form-control" asp-for="ConfirmPassword" aria-describedby="userConfirmPassword" placeholder="">
             </div>
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-success">Sig up</button>
+                <button type="submit" class="btn btn-success pr-5 pl-5">Sig up</button>
                 <hr/>
                 <p class="d-inline justify-content-center font-italic">if you already have an account, you can sign in</p> <a asp-action="Login" asp-controller="Account" class="d-inline justify-content-center"><u> here</u></a>
             </div>
             
         </form>
     </div>
-    
 </div>
 
