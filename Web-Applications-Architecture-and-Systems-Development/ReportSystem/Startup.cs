@@ -35,9 +35,11 @@ namespace ReportSystem
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings
@@ -46,7 +48,12 @@ namespace ReportSystem
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
+
+                //email settings
+                options.User.RequireUniqueEmail = true;
+                //options.SignIn.RequireConfirmedEmail = false;
             });
+            services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
 
             /*I: register/map services to interface */
             services.AddScoped<IRoleService, RoleService>();

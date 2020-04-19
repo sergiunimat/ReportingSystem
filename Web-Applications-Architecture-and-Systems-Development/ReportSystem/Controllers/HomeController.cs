@@ -25,6 +25,11 @@ namespace ReportSystem.Controllers
             return View();
         }
         [Authorize]
+        public IActionResult LogedInIndex(string userId)
+        {
+            return View("Index");
+        }
+        [Authorize]
         public IActionResult Manager()
         {
             return View();

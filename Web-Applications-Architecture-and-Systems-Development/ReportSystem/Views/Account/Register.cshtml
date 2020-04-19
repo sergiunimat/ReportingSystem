@@ -4,34 +4,69 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Registration</h1>
 
-<form asp-action="Register" asp-controller="Account" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Email">Email address</label>
-        <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp" placeholder="Enter email">
-        <span asp-validation-for="Email" class="text-danger"></span>
-        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-        <label asp-for="City">City</label>
-        <input type="text" class="form-control" asp-for="City" aria-describedby="emailHelp" placeholder="Enter email">
-        <span asp-validation-for="City" class="text-danger"></span>
-        <small class="form-text text-muted">Enter city you are living in</small>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password">Password</label>
-        <input type="password" class="form-control" asp-for="Password" placeholder="Password">
-        <span asp-validation-for="Password" class="text-danger"></span>
-        <small class="form-text text-muted">Password constrains</small>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword">Password</label>
-        <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Password">
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
 
-    </div>
+<div class="row h-100 pt-3 pb-3">
+    <div class="col-6 shadow p-3 mb-5 bg-white rounded my-auto mx-auto" style="min-width: 250px">
+        <form asp-action="Register" asp-controller="Account" method="post">
+            <div class="card-header bg-dark">
+                <h1 class="d-flex justify-content-center text-white">Sign Up</h1>
+            </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+            <div asp-validation-summary="All" class="text-secondary bg-light h9 font-italic"></div>
+
+            <span asp-validation-for="Name" class="text-danger float-left font-italic"></span>
+            <small class="form-text text-muted font-italic float-right">Enter your name</small>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="userName">Name</span>
+                </div>
+                <input type="text" class="form-control" asp-for="Name" aria-describedby="userName" placeholder="">
+            </div>
+
+
+            <span asp-validation-for="Email" class="text-muted float-left font-italic"></span>
+            <small class="form-text text-muted font-italic float-right">Enter your email</small>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="userEmail">Email</span>
+                </div>
+                <input type="email" class="form-control" asp-for="Email" aria-describedby="userEmail" placeholder="">
+            </div>
+
+            <span asp-validation-for="Address" class="text-danger float-left font-italic"></span>
+            <small class="form-text text-muted font-italic float-right">Enter your address</small>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="userAddress">Address</span>
+                </div>
+                <input type="text" class="form-control" asp-for="Address" aria-describedby="userAddress" placeholder="">
+            </div>
+
+            <span asp-validation-for="Password" class="text-danger float-left font-italic"></span>
+            <small class="form-text text-muted font-italic float-right">Enter password</small>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="userPassword">Password</span>
+                </div>
+                <input type="password" class="form-control" asp-for="Password" aria-describedby="userPassword" placeholder="">
+            </div>
+
+            <span asp-validation-for="ConfirmPassword" class="text-muted float-left font-italic"></span>
+            <small class="form-text text-muted font-italic float-right">Confirm password</small>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="userConfirmPassword">Re-Password</span>
+                </div>
+                <input type="password" class="form-control" asp-for="ConfirmPassword" aria-describedby="userConfirmPassword" placeholder="">
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-success pr-5 pl-5">Sig up</button>
+                <hr/>
+                <p class="d-inline justify-content-center font-italic">if you already have an account, you can sign in</p> <a asp-action="Login" asp-controller="Account" class="d-inline justify-content-center"><u> here</u></a>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
