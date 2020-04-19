@@ -91,13 +91,16 @@ namespace ReportSystem.Controllers
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByNameAsync(model.Name);
+                    var role = await _userManager.GetRolesAsync(user);
                     if (!string.IsNullOrEmpty(returnUrl))
                     {
                         return LocalRedirect(returnUrl);
                     }
                     else
                     {
-                        return RedirectToAction("LogedInIndex", "Home", new{userId = user.Id});
+                        // check if user has admin role
+                        return role.Contains(Role.Administrator) ? RedirectToAction("Index", "Admin", new { userId = user.Id })
+                                                                    : RedirectToAction("LogedInIndex", "Home", new{userId = user.Id});
                     }
                     
                 }
