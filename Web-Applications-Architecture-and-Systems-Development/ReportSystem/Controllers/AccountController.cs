@@ -52,7 +52,7 @@ namespace ReportSystem.Controllers
 
                     /*we are sign in the user with a session cookie i.e. when browser is closed the cookie is destroyed*/
                     await _signInManager.SignInAsync(user,isPersistent:false);
-                   return RedirectToAction("Index", "Home");
+                   return RedirectToAction("LogedInIndex", "Home", new {userId = user.Id});
                 }
 
                 foreach (var err in result.Errors)
@@ -90,13 +90,14 @@ namespace ReportSystem.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Name, model.Password,isPersistent:model.RememberMe,false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByNameAsync(model.Name);
                     if (!string.IsNullOrEmpty(returnUrl))
                     {
                         return LocalRedirect(returnUrl);
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("LogedInIndex", "Home", new{userId = user.Id});
                     }
                     
                 }
