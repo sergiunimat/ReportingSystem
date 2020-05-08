@@ -12,10 +12,6 @@ namespace ReportSystem.Models
         public string UserAddress { get; set; }
         public int UserCredit { get; set; }
         
-        
-        
-        
-        
         [InverseProperty("ReportReporter")]
         public virtual List<Report> Reporter { get; set; }
         [InverseProperty("ReportInvestigator")]

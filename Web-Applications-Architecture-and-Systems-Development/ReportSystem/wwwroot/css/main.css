@@ -12,6 +12,10 @@
     box-shadow: 0 0 11px rgba(33,33,33,.2);
     background-color: #FF5733;
 }
+.shadow-animation-edit-user:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+    background-color: #ABEE0F;
+}
 
 .logo {
     width: 150px;
