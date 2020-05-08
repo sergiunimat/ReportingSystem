@@ -9,6 +9,6 @@ namespace ReportSystem.Interfaces
     public interface IAdminService
     {
         Task EditUser(EditUserObject userObj);
-
+        Task DeleteUser(string userId);
     }
 }

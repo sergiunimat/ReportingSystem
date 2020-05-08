@@ -31,7 +31,17 @@ namespace ReportSystem.Services
                 user.Email = userObj.UserEmail;
                 user.UserName = userObj.UserName;
                 _ctx.Users.Update(user);
-                _ctx.SaveChanges();
+                await _ctx.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                _ctx.Users.Remove(user);
+                await _ctx.SaveChangesAsync();
             }
         }
     }

@@ -42,11 +42,15 @@ namespace ReportSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUserAsync(EditUserObject formDTO)
         {
-
             await _adminService.EditUser(formDTO);
             return RedirectToAction("Index");
         }
 
 
+        public async Task<IActionResult> DeleteUserAsync(string userId)
+        {
+            await _adminService.DeleteUser(userId);
+            return RedirectToAction("Users");
+        }
     }
 }

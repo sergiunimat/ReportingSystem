@@ -30,19 +30,31 @@
                 <tbody style="max-height: 30px">
                     @foreach (var user in Model)
                     {
-                    <tr>
-                        <th class="text-center"><img src="https://img.icons8.com/bubbles/50/000000/add-file.png" /></th>
-                        <td class="text-center">@user.UserName</td>
-                        <td class="text-center">@user.Email</td>
-                        <td class="text-center">@user.UserAddress</td>
-                        <td data-toggle="modal" data-target="#editUserModal" class="shadow-animation text-center" onclick="userAjaxRequest('@user.Id')"><img src="https://img.icons8.com/bubbles/50/000000/edit-property.png" /></td>
-                        @*<td class="text-center"><a class="btn btn-light border-secondary w-100" href="#" data-toggle="modal" data-target="#editUserModal" onclick="userAjaxRequest(@user.Id)" style="color: black;">
-                            <div class="mx-auto w-100 ">
-                                <p style="font-size: medium" class="p-0 m-0">Edit</p>
+                        <tr>
+                            <th class="text-center"><img src="https://img.icons8.com/bubbles/50/000000/add-file.png" /></th>
+                            <td class="text-center">@user.UserName</td>
+                            <td class="text-center">@user.Email</td>
+                            <td class="text-center">@user.UserAddress</td>
+                            <td data-toggle="modal" data-target="#editUserModal" class="shadow-animation text-center" onclick="userAjaxRequest('@user.Id')"><img src="https://img.icons8.com/bubbles/50/000000/edit-property.png" /></td>
+                            <td data-toggle="modal" data-target="#deleteuser_@user.NormalizedUserName"  class="shadow-animation text-center"><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png"/></td>
+                        </tr>
+                        <!-- Modal for Delete -->
+                        <div class="modal fade" id="deleteuser_@user.NormalizedUserName" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to <b>Delete:</b> @user.UserName ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn shadow-animation" data-dismiss="modal">Close</a>
+                                        <a class="btn shadow-animation" asp-action="DeleteUser" asp-controller="Admin" asp-route-userId="@user.Id">Delete</a>
+                                    </div>
+                                </div>
                             </div>
-                        </a></td>*@
-                        <td class="shadow-animation text-center"><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" /></td>
-                    </tr>
+                        </div>
                     }
                 </tbody>
             </table>
@@ -65,10 +77,6 @@
 
                 ...
             </div>
-            @*<div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>*@
         </div>
     </div>
 </div>
