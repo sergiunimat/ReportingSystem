@@ -23,7 +23,13 @@
 
 
   <ItemGroup>
+    <Folder Include="Img\" />
     <Folder Include="Pages\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\pagelogo.png" />
   </ItemGroup>
 
 </Project>
