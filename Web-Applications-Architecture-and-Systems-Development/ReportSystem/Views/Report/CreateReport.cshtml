@@ -1,4 +1,4 @@
-﻿@model ReportSystem.Models.Report
+﻿@model ReportSystem.ViewModels.ReportViewModel
 
 @{
     ViewData["Title"] = "Reports";
@@ -9,7 +9,7 @@
 
 <div class="row align-content-center">
     <div class="col-12 shadow">
-        <form class="w-100 row" action="/" method="post">
+        <form enctype="multipart/form-data" class="w-100 row m-0" asp-controller="Report" asp-action="CreateReport" method="post">
             <div class="col-12 pr-0">
                 <img class="d-inline" src="https://img.icons8.com/bubbles/80/000000/hand-with-pen.png" />
                 <p class="h1 d-inline align-middle">Create Report</p>
@@ -37,14 +37,14 @@
                         <textarea class="form-control" asp-for="ReportDescription" rows="3"></textarea>
                     </div>*@
 
-                <small class="form-text text-muted font-italic float-right">Select picture path</small>
+                <small class="form-text text-muted font-italic float-right">Select picture from folder</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" asp-validation-for="ReportPicturePath">Picture</span>
+                        <span class="input-group-text" asp-validation-for="ReportPicture">Picture</span>
                     </div>
                     <div class="custom-file">
-                        <input id="imgInp" type="file" class="custom-file-input" asp-for="ReportPicturePath" aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01"></label>
+                        <input id="imgInp" type="file" class="custom-file-input" asp-for="ReportPicture" aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" id="inpPicText" for="imgInp"></label>
                     </div>
                 </div>
 
@@ -60,22 +60,22 @@
 
             </div>
             @* picture section *@
-        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
 
-            <small class="form-text text-muted font-italic float-right">Drag & drop the marker on the map to get a precise location</small>
-            <div class="input-group mb-3 ">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="width: 110px" id="ReportAddress">Location</span>
+                <small class="form-text text-muted font-italic float-right">Drag & drop the marker on the map to get a precise location</small>
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 110px" id="ReportAddress">Location</span>
+                    </div>
+                    <input readonly id="computedAddress" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
                 </div>
-                <input readonly id="computedAddress" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+                <div class="input-group mb-3" id="map" style="height:400px">
+                    @*<button data-toggle="modal" data-target="#mapModal" class="btn btn-block shadow-animation" type="button"><img src="https://img.icons8.com/bubbles/40/000000/google-maps.png" /></button>*@
+                </div>
+                <input hidden id="rLat" asp-for="ReportLatitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+                <input hidden id="rLong" asp-for="ReportLongitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
             </div>
-            <div class="input-group mb-3" id="map" style="height:400px">
-                @*<button data-toggle="modal" data-target="#mapModal" class="btn btn-block shadow-animation" type="button"><img src="https://img.icons8.com/bubbles/40/000000/google-maps.png" /></button>*@
-            </div>
-            <input hidden id="rLat" asp-for="ReportLatitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
-            <input hidden id="rLong" asp-for="ReportLongitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
-        </div>
-
+            <button type="submit" class="btn btn-success">Success</button>
         </form>
     </div>
 </div>
@@ -83,7 +83,7 @@
 
 
 
-
+<script src="~/js/picture.js"></script>
 <script src="~/js/GoogleMap.js"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb9WI9xcpb1A5Gs2fnfKkh54EcXsw2wyE&callback=initMap">
@@ -91,7 +91,3 @@
 
 
 
-
-@* script to load google maps. *@
-
-@*<script src="~/js/picture.js"></script>*@

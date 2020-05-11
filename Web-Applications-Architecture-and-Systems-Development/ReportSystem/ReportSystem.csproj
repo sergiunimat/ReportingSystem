@@ -23,7 +23,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Img\" />
     <Folder Include="Pages\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>

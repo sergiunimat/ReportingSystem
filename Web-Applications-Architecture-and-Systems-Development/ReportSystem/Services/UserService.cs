@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using ReportSystem.Interfaces;
 using ReportSystem.Models;
@@ -33,5 +34,6 @@ namespace ReportSystem.Services
                 await _userManager.AddToRoleAsync(newPowerUser, Role.Administrator);
             }
         }
+
     }
 }
