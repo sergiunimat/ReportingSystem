@@ -1,0 +1,23 @@
+﻿@model List<ReportSystem.Models.Report>  
+
+@{
+    ViewData["Title"] = "Reports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+    <div class="row">
+        @foreach (var r in Model)
+        {
+            var picturePath = "Images/"+r.ReportPicturePath;
+            <div class="card" style="width: 18rem;">
+                
+                <img class="card-img-top" src="~/@picturePath" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@r.ReportTitle</h5>
+                    <p class="card-text">@r.ReportDescription</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        }
+    </div>

@@ -11,5 +11,8 @@ namespace ReportSystem.Interfaces
         Task CreateReport(Report report);
         List<Report> GetAllReports();
         List<Report> GetReportsByReporterId(string userId);
+        List<Report> GetReportsByInvestigatorId(string userId);
+        Report GetReportById(int reportId);
+        Task EditReport(Report report);
     }
 }

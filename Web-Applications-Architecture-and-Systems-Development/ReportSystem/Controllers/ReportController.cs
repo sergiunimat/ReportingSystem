@@ -27,12 +27,19 @@ namespace ReportSystem.Controllers
             _hostingEnvironment = hostingEnvironment;
             _reportService = reportService;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-           
             return View();
-
         }
+
+        [HttpGet]
+        public async Task<IActionResult> OwnReports()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var listOfOwnReports = _reportService.GetReportsByReporterId(user.Id);
+            return View(listOfOwnReports);
+        }
+
 
         [Authorize]
         [HttpGet]
@@ -41,9 +48,10 @@ namespace ReportSystem.Controllers
            
             return View();
         }
+
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreateReportAsync(ReportViewModel reportViewModel)
+        public async Task<IActionResult> CreateReport(ReportViewModel reportViewModel)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             
