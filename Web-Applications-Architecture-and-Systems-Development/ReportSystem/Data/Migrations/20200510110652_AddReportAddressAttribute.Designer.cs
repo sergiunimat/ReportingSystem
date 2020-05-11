@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReportSystem.Data;
 
 namespace ReportSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200510110652_AddReportAddressAttribute")]
+    partial class AddReportAddressAttribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,17 +281,14 @@ namespace ReportSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ReportAddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ReportDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReportInvestigatorId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<double>("ReportLatitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ReportLongitude")
-                        .HasColumnType("float");
 
                     b.Property<string>("ReportPicturePath")
                         .HasColumnType("nvarchar(max)");

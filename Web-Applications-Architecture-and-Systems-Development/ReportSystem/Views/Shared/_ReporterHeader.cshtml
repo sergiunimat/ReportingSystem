@@ -1,7 +1,9 @@
 ﻿<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ReportSystem</a>
+        <div class="row w-100">
+            <a class="navbar-brand float-left" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/pagelogo.png" alt="" class="logo" />
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -13,11 +15,22 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Reports</a>
+                        @*<a class="nav-link text-dark" asp-area="" asp-controller="Report" asp-action="Index">Reports</a>*@
+                        <div class="btn-group">
+                            <button style="outline: none; box-shadow: none" type="button" class="btn" asp-controller="Report" asp-action="Index">Reports</button>
+                            <button style="outline: none; box-shadow: none" type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                <a class="dropdown-item" asp-controller="Report" asp-action="CreateReport">Create Report</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">View Own Reports</a>
+                            </div>
+                        </div>
                     </li>
                     @*<li class="nav-item mx-auto">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>*@
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                </li>*@
                 </ul>
             </div>
         </div>
