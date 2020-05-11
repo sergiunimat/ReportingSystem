@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using ReportSystem.Interfaces;
 using ReportSystem.Models;
@@ -27,5 +28,36 @@ namespace ReportSystem.Services
             await _ctx.Reports.AddAsync(report);
             await _ctx.SaveChangesAsync();
         }
+
+        public List<Report> GetAllReports()
+        {
+            return  _ctx.Reports.ToList();
+        }
+
+        public List<Report> GetReportsByReporterId(string userId)
+        {
+            return  _ctx.Reports.Where(r => r.ReportReporterId == userId).ToList();
+        }
+
+        public List<Report> GetReportsByInvestigatorId(string userId)
+        {
+            return _ctx.Reports.Where(r => r.ReportInvestigatorId == userId).ToList();
+        }
+
+        public Report GetReportById(int reportId)
+        {
+            return _ctx.Reports.FirstOrDefault(r => r.ReportId == reportId);
+        }
+
+        public async Task EditReport(Report report)
+        {
+           var dbReport = await _ctx.Reports.FirstOrDefaultAsync(r => r.ReportId == report.ReportId);
+           dbReport = report;
+           _ctx.Reports.Update(dbReport);
+           await _ctx.SaveChangesAsync();
+
+        }
+
+      
     }
 }

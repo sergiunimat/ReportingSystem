@@ -9,5 +9,7 @@ namespace ReportSystem.Interfaces
     public interface IReportService
     {
         Task CreateReport(Report report);
+        List<Report> GetAllReports();
+        List<Report> GetReportsByReporterId(string userId);
     }
 }
