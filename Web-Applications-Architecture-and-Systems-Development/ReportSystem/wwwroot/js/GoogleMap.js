@@ -11,6 +11,7 @@ function initMap() {
     var map = new google.maps.Map(
     document.getElementById('map'), {
         zoom: 16,
+        mapTypeId: 'satellite',
         center: {
             lat: universityLocation.lat,
             lng: universityLocation.lng
@@ -64,12 +65,17 @@ function initMap() {
 
 /*I: fn-> to show marker on the map of a specific report
         the lat and long is required apart from setting the div where the map should be rendered with width and hight.*/
-function setMarkerWithAddressOnMap(lat, lng) {
+function setMarkerWithAddressOnMap() {
+    var lat = parseFloat($('#lat').val());
+    var lng = parseFloat($('#lng').val());
+
+    console.log(lat,lng);
     var geocoder = new google.maps.Geocoder;
     var infowindow = new google.maps.InfoWindow;
     var map = new google.maps.Map(
-    document.getElementById('divname'), {
-        zoom: 16,
+    document.getElementById('map'), {
+        zoom: 19,
+        mapTypeId: 'satellite',
         center: {
             lat: lat,
             lng: lng
@@ -82,15 +88,18 @@ function setMarkerWithAddressOnMap(lat, lng) {
         lng: lng
     },
     map: map,
-    draggable: false
+    animation: google.maps.Animation.DROP,
+    draggable: false,
+    title:"here is the trouble :P"
+
     });
+    geocodeLatLng(geocoder, map, infowindow, lat, lng);
 
-
-    marker.addListener('load',
-        (ev) => {
-            console.log(ev.latLng.lat() + "," + ev.latLng.lng());
-            geocodeLatLng(geocoder, map, infowindow, ev.latLng.lat(), ev.latLng.lng());
-        });
+    //marker.addListener('click',
+    //    (ev) => {
+    //        console.log(ev.latLng.lat() + "," + ev.latLng.lng());
+    //        geocodeLatLng(geocoder, map, infowindow, ev.latLng.lat(), ev.latLng.lng());
+    //    });
 
 
     function geocodeLatLng(geocoder, map, infowindow, lat, lng) {
@@ -113,5 +122,34 @@ function setMarkerWithAddressOnMap(lat, lng) {
     };
 }
 
+
+function initMapTwo() {
+    lat = $('#lat').val();
+    lng = $('#lng').val();
+    console.log(lat,lng);
+    var universityLocation = {
+        lat: lat,
+        lng: lng
+    };
+
+    var map = new google.maps.Map(
+        document.getElementById('map'), {
+            zoom: 16,
+            center: {
+                lat: universityLocation.lat,
+                lng: universityLocation.lng
+            }
+        });
+
+
+    var marker = new google.maps.Marker({
+        position: {
+            lat: universityLocation.lat,
+            lng: universityLocation.lng
+        },
+        map: map,
+        draggable: true
+    });
+}
 
 

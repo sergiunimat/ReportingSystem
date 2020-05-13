@@ -10,7 +10,7 @@ namespace ReportSystem.Models
     {
         public int HazardId { get; set; }
         public string HazardTitle { get; set; }
-        public string HazardDescription { get; set; }
+        
         [ForeignKey("ReportId")]
         public Report Report { get; set; }
 

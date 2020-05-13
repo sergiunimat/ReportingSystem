@@ -100,7 +100,7 @@ namespace ReportSystem.Controllers
                     {
                         // check if user has admin role
                         return role.Contains(Role.Administrator) ? RedirectToAction("Index", "Admin", new { userId = user.Id })
-                                                                    : RedirectToAction("LogedInIndex", "Home",new{userId=user.Id});
+                                                                    : RedirectToAction("Index", "Home",new{userId=user.Id});
                     }
                     
                 }

@@ -19,36 +19,52 @@
             </div>
             @* form that will be posted *@
 
-            <div class="col-lg-6 col-md-12 col-sm-12 ">
-                @* report title *@
-                <span asp-validation-for="ReportTitle" class="text-danger float-left font-italic"></span>
-                <small class="form-text text-muted font-italic float-right">Enter Report Title</small>
-                <div class="input-group mb-3 ">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 110px" id="ReportTitle">Title</span>
-                    </div>
-                    <input type="text" class="form-control" asp-for="ReportTitle" aria-describedby="ReportTitle" placeholder="">
+        <div class="col-lg-6 col-md-12 col-sm-12 ">
+            @* report title *@
+            <span asp-validation-for="ReportTitle" class="text-danger float-left font-italic"></span>
+            <small class="form-text text-muted font-italic float-right">Enter Report Title</small>
+            <div class="input-group mb-3 ">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="ReportTitle">Title</span>
                 </div>
-                @* report description *@
-                @*<span asp-validation-for="ReportDescription" class="text-danger float-left font-italic"></span>
-                    <small class="form-text text-muted font-italic float-right">Enter Report description</small>
-                    <div class="form-group">
-                        <label asp-for="ReportDescription" class="font-weight-bold">Description</label>
-                        <textarea class="form-control" asp-for="ReportDescription" rows="3"></textarea>
-                    </div>*@
-
-                <small class="form-text text-muted font-italic float-right">Select picture from folder</small>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" asp-validation-for="ReportPicture">Picture</span>
-                    </div>
-                    <div class="custom-file">
-                        <input id="imgInp" type="file" class="custom-file-input" asp-for="ReportPicture" aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" id="inpPicText" for="imgInp"></label>
-                    </div>
-                </div>
-
+                <input type="text" class="form-control" asp-for="ReportTitle" aria-describedby="ReportTitle" placeholder="">
             </div>
+            @* report description *@
+            @*<span asp-validation-for="ReportDescription" class="text-danger float-left font-italic"></span>
+        <small class="form-text text-muted font-italic float-right">Enter Report description</small>
+        <div class="form-group">
+            <label asp-for="ReportDescription" class="font-weight-bold">Description</label>
+            <textarea class="form-control" asp-for="ReportDescription" rows="3"></textarea>
+        </div>*@
+
+            <small class="form-text text-muted font-italic float-right">Select picture from folder</small>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" asp-validation-for="ReportPicture">Picture</span>
+                </div>
+                <div class="custom-file">
+                    <input id="imgInp" type="file" class="custom-file-input" asp-for="ReportPicture" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" id="inpPicText" for="imgInp"></label>
+                </div>
+            </div>
+
+            <span asp-validation-for="Hazards" class="text-danger float-left font-italic"></span>
+            <small class="form-text text-muted font-italic float-right">Type new or chose existing hazard</small>
+            <div class="input-group mb-3 ">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="reportHazard">Hazard</span>
+                </div>
+                @*<input type="text" class="form-control" list="hazards" asp-for="Hazards" aria-describedby="ReportTitle" placeholder="">*@
+                <input type="text" list="hazards" class="form-control" asp-for="HazardTitle"/>
+                <datalist id="hazards">
+                    @foreach (var hazard in Model.Hazards)
+                    {
+                        <option>@hazard.HazardTitle</option>
+                    }
+                </datalist>
+            </div>
+
+        </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
                 @* report description *@
                 <span asp-validation-for="ReportDescription" class="text-danger float-left font-italic"></span>

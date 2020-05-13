@@ -8,6 +8,12 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200412214122_AddCustomApplicationUser.cs" />
     <Compile Remove="Data\Migrations\20200412214122_AddCustomApplicationUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200513142534_Fix.cs" />
+    <Compile Remove="Data\Migrations\20200513142534_Fix.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200513142757_Fix.cs" />
+    <Compile Remove="Data\Migrations\20200513142757_Fix.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200513143542_FixDrop.cs" />
+    <Compile Remove="Data\Migrations\20200513143542_FixDrop.Designer.cs" />
   </ItemGroup>
 
 

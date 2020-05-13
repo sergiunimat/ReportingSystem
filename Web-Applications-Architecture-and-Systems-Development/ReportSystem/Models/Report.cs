@@ -15,6 +15,8 @@ namespace ReportSystem.Models
         public double ReportLatitude { get; set; }
         public double ReportLongitude { get; set; }
         public string ReportReporterId { get; set; }
+        public int ReportHazardId { get; set; }
+        public DateTime ReportRegisterTime { get; set; }
         public ApplicationUser ReportReporter { get; set; }
         public string ReportInvestigatorId { get; set; }
         public ApplicationUser ReportInvestigator { get; set; }

@@ -1,0 +1,172 @@
+﻿@model ReportSystem.ViewModels.SpecificReportViewModel
+
+@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row shadow">
+    <div class="col-12 shadow pr-0">
+        <img class="d-inline" src="https://img.icons8.com/bubbles/90/000000/file.png" />
+        <p class="h2 d-inline align-middle">@Model.ReportTitle</p>
+        <a class="shadow-animation float-right" asp-action="Index" asp-controller="Admin">
+            <img src="https://img.icons8.com/bubbles/90/000000/long-arrow-left.png" />
+        </a>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-3 ">
+
+
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th scope="row">Title</th>
+                    <td>@Model.ReportTitle</td>
+                </tr>
+                <tr>
+                    <th scope="row">Description</th>
+                    <td>@Model.ReportDescription</td>
+
+                </tr>
+                <tr>
+                    <th scope="row">Hazard</th>
+                    <td>@Model.HazardTitle</td>
+                </tr>
+                <tr>
+                    <th scope="row">Reporter</th>
+                    <td>@Model.ReporterName</td>
+                </tr>
+                <tr>
+                    <th scope="row">Investigator</th>
+                    <td>@Model.InvestigatorName</td>
+                </tr>
+                <tr>
+                    <th scope="row">Created</th>
+                    <td>@Model.ReportRegisterTime.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <th scope="row">Status</th>
+                    <td>pending</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-3 ">
+        @* picture *@
+        <img src="~/Images/@Model.PicturePath" style="height: 350px" class="w-100">
+    </div>
+
+
+    <div class="col-12 shadow mt-3">
+        @* map *@
+        <div class="input-group mb-3" id="map" style="height:400px">
+            @*<button data-toggle="modal" data-target="#mapModal" class="btn btn-block shadow-animation" type="button"><img src="https://img.icons8.com/bubbles/40/000000/google-maps.png" /></button>*@
+        </div>
+    </div>
+    <div class="col-12 shadow mt-3  pb-4">
+        @* comments *@
+        <div class="form-group">
+            <img class="d-inline" src="https://img.icons8.com/bubbles/60/000000/speech-bubble-with-dots.png" />
+            <p class="h3 d-inline align-middle">Comments</p>
+            <a onclick="commentAjaxRequest('@Model.ReportId')" data-toggle="modal" data-target="#exampleModal"><img class="float-right shadow-animation" src="https://img.icons8.com/bubbles/80/000000/plus.png" /></a>
+        </div>
+
+            @foreach (var comment in Model.ReportCommentList)
+            {
+                if (Model.CurrentUserId==comment.UserId)
+                {
+                <div class="card w-100 mb-4">
+                    <div class="card-header">
+                        @comment.CommentCreateDate
+                        <button class="btn shadow-animation float-right">Edit</button>
+                        <button class="btn shadow-animation float-right">delete</button>
+                        <button class="btn shadow-animation float-right">modify</button>
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>@comment.CommentText</p>
+                            <footer class="blockquote-footer">User: <cite title="Source Title">@comment.CommentOwner</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+                }
+                else
+                {
+                <div class="card w-100 mb-4">
+                    <div class="card-header">
+                        @comment.CommentCreateDate
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>@comment.CommentText</p>
+                            <footer class="blockquote-footer">User: <cite title="Source Title">@comment.CommentOwner</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+                }
+                
+            }
+
+    </div>
+    <input type="text" hidden id="lat" value="@Model.ReportLatitude">
+    <input type="text" hidden id="lng" value="@Model.ReportLongitude">
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img class="d-inline" src="https://img.icons8.com/bubbles/40/000000/comments.png" />
+                <p class="h4 d-inline align-middle">Add Comment</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="https://img.icons8.com/bubbles/40/000000/long-arrow-left.png" /></span>
+                </button>
+            </div>
+            <div id="commentSectionId">
+
+            </div>
+            @*<form method="post" asp-controller="Report" asp-action="AddComment">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <textarea asp-for="CommentText" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <input hidden asp-for="ReportId" value="@Model.ReportId">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn shadow-animation  font-weight-bold border">Save changes</button>
+                    </div>
+
+                </form>*@
+        </div>
+    </div>
+</div>
+
+<script src="~/js/GoogleMap.js"></script>
+<script async defer
+        @*src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb9WI9xcpb1A5Gs2fnfKkh54EcXsw2wyE&callback=initMapTwo">*@
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb9WI9xcpb1A5Gs2fnfKkh54EcXsw2wyE&callback=setMarkerWithAddressOnMap">
+</script>
+<script>
+    function commentAjaxRequest(reportId) {
+        $.ajax({
+            url: window.location.origin + "/Report/AddCommentRedirect?reportId=" + reportId,
+            type: "GET",
+
+            complete: function (result) {
+                console.log(result.responseText);
+
+                //var x = document.getElementById("modelompany");
+                //x.style.display = "block";
+                $("#commentSectionId").html(result.responseText);
+
+            }
+        });
+    }
+
+</script>
+
