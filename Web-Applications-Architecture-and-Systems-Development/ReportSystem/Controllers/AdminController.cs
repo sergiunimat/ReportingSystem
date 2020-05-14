@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ReportSystem.Interfaces;
 using ReportSystem.Models;
+using ReportSystem.ViewModels;
 
 namespace ReportSystem.Controllers
 {
@@ -40,7 +41,7 @@ namespace ReportSystem.Controllers
             return ViewComponent("EditUser",new{userId=userId});
         }
         [HttpPost]
-        public async Task<IActionResult> EditUserAsync(EditUserObject formDTO)
+        public async Task<IActionResult> EditUserAsync(EditUserViewModel formDTO)
         {
             await _adminService.EditUser(formDTO);
             return RedirectToAction("Index");

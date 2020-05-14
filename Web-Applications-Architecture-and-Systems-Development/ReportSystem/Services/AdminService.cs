@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using ReportSystem.Interfaces;
 using ReportSystem.Models;
+using ReportSystem.ViewModels;
 
 namespace ReportSystem.Services
 {
@@ -22,10 +23,26 @@ namespace ReportSystem.Services
             _userManager = userManager;
             _ctx = ctx;
         }
-        public async Task EditUser(EditUserObject userObj)
+        public async Task EditUser(EditUserViewModel userObj)
         {
             //var user = _userManager.Users.FirstOrDefaultAsync(x => x.Id == userObj.UserId);
             var user = await _userManager.FindByIdAsync(userObj.UserId);
+            if (userObj.InvestigatorRole==true)
+            {
+                await _userManager.AddToRoleAsync(user, Role.Investigator);
+            }
+            else
+            {
+                await _userManager.RemoveFromRoleAsync(user,Role.Investigator);
+            }
+            if (userObj.AdminRole == true)
+            {
+                await _userManager.AddToRoleAsync(user, Role.Administrator);
+            }
+            else
+            {
+                await _userManager.RemoveFromRoleAsync(user, Role.Administrator);
+            }
             if (user!=null)
             {
                 user.Email = userObj.UserEmail;
