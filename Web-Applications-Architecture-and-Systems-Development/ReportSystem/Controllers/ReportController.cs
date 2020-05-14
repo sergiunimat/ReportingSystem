@@ -165,6 +165,9 @@ namespace ReportSystem.Controllers
                     };
                     commentListDto.Add(commentDto);
                 }
+
+                string currentUserId;
+                currentUserId = currentUser==null ? "" : currentUser.Id;
                 var currentReport = new SpecificReportViewModel()
                 {
                     ReportId = report.ReportId,
@@ -176,7 +179,7 @@ namespace ReportSystem.Controllers
                     ReportLongitude = report.ReportLongitude,
                     ReportLatitude = report.ReportLatitude,
                     ReportCommentList = commentListDto,
-                    CurrentUserId = currentUser.Id,
+                    CurrentUserId = currentUserId,
                     ReporterId = report.ReportReporterId,
                     ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
                     //InvestigatorId = report.ReportInvestigatorId,
