@@ -29,6 +29,12 @@
                 </div>
                 <input type="text" class="form-control" asp-for="ReportTitle" aria-describedby="ReportTitle" placeholder="">
             </div>
+            
+            
+            
+            
+            
+
            
             @* report img *@
             <small class="form-text text-muted font-italic float-right">Select picture from folder</small>
@@ -49,7 +55,7 @@
                     <span class="input-group-text" style="width: 110px" id="reportHazard">Hazard</span>
                 </div>
                 @*<input type="text" class="form-control" list="hazards" asp-for="Hazards" aria-describedby="ReportTitle" placeholder="">*@
-                <input type="text" list="hazards" class="form-control" asp-for="HazardTitle"/>
+                <input type="text" list="hazards" class="form-control" asp-for="HazardTitle" required=""/>
                 <datalist id="hazards">
                     @foreach (var hazard in Model.Hazards)
                     {

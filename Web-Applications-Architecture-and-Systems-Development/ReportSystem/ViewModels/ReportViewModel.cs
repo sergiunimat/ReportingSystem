@@ -19,10 +19,11 @@ namespace ReportSystem.ViewModels
         [StringLength(600, MinimumLength = 12)]
         [Required]
         public string ReportDescription { get; set; }
+        
         public IFormFile ReportPicture { get; set; }
         public double ReportLatitude { get; set; }
         public double ReportLongitude { get; set; }
-        [Required]
+        
         public List<Hazard> Hazards { get; set; }
         public string HazardTitle { get; set; }
         public string PicturePath { get; set; }
