@@ -16,7 +16,7 @@
     @foreach (var r in Model)
     {
         var picturePath = "Images/" + r.PicturePath;
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation bg-white m-0 p-1">
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation bg-white m-0 p-1 mb-5">
             <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
                 <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
                 <p class="h3">@r.ReportTitle</p>
@@ -25,8 +25,16 @@
                 <hr />
                 <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
                 <p class="d-inline pl-5"><img src="https://img.icons8.com/bubbles/40/000000/speech-bubble-with-dots.png" /> @r.ReportCommentCount</p>
-                <p class="d-inline float-right"><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />status</p>
+                <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />status</p>
             </a>
+            <div class="w-100 row">
+                <div class="col-6">
+                    <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@r.ReportId" class="btn btn-warning btn-block">Delete</a>
+                </div>
+                <div class="col-6 mr-0 pr-0">
+                    <a class="btn btn-success btn-block">Edit</a>
+                </div>
+            </div>
         </div>
 
     }
