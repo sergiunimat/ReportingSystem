@@ -212,5 +212,14 @@ namespace ReportSystem.Controllers
 
             return NotFound();
         }
+
+        public async Task<IActionResult> DeleteReport(int reportId)
+        {
+            /*call the service*/
+            await _reportService.DeleteReportById(reportId);
+
+            return RedirectToAction("OwnReports");
+
+        }
     }
 }
