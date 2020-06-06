@@ -58,6 +58,13 @@ namespace ReportSystem.Services
 
         }
 
-      
+        public async Task DeleteReportId(int reportId)
+        {
+            var delRep = await _ctx.Reports.FirstOrDefaultAsync(r => r.ReportId == reportId);
+            _ctx.Remove(delRep);
+            await _ctx.SaveChangesAsync();
+        }
+
+
     }
 }
