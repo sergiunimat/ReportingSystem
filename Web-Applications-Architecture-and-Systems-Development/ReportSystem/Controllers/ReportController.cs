@@ -85,6 +85,8 @@ namespace ReportSystem.Controllers
             return View(sendModel);
         }
 
+
+        /*I: this action result is responsible to create a report.*/
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateReport(ReportViewModel reportViewModel)
