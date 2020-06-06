@@ -77,7 +77,33 @@ namespace ReportSystem.Controllers
         [Authorize]
         public IActionResult LogedInIndex(string userId)
         {
-            return View("Index");
+            var listofReports = _reportService.GetAllReports();
+            if (listofReports.Count != 0)
+            {
+                var listDto = new List<ReportViewModel>();
+                foreach (var report in listofReports)
+                {
+
+                    var r = new ReportViewModel()
+                    {
+                        ReportId = report.ReportId,
+                        ReportDescription = report.ReportDescription,
+                        ReportTitle = report.ReportTitle,
+                        PicturePath = report.ReportPicturePath,
+                        ReportLatitude = report.ReportLatitude,
+                        ReportLongitude = report.ReportLongitude,
+                        HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
+                        ReportRegisterTime = report.ReportRegisterTime,
+                        ReportCommentCount = _commentService.CountCommentsByReportId(report.ReportId),
+                        ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName
+                    };
+                    listDto.Add(r);
+
+                }
+                return View("Index",listDto);
+            }
+
+            return NotFound();
         }
         [Authorize]
         public IActionResult Manager()
