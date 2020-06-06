@@ -20,11 +20,12 @@ namespace ReportSystem.ViewModels
         public DateTime ReportRegisterTime { get; set; }
         public List<CommentViewModel> ReportCommentList { get; set; }
         public string CommentText { get; set; }
-        public string? CurrentUserId { get; set; }
+        public string CurrentUserId { get; set; }
         public string ReporterName { get; set; }
         public string ReporterId { get; set; }
         public string InvestigatorId { get; set; }
         public string InvestigatorName { get; set; }
+        public bool Status { get; set; }
 
     }
 }

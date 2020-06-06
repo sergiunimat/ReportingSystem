@@ -1,0 +1,114 @@
+﻿@model ReportSystem.ViewModels.ActiveOrPendingReportsViewModel
+
+@{
+    ViewData["Title"] = "Investigations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<div class="row w-100">
+    <div class="col-12">
+        <ul class="nav nav-tabs">
+
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" id="clickMenu" href="#investigationReports">Reports Under Investigation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#pendingReports">Pending Reports</a>
+            </li>
+            @*<li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#info">Info</a>
+            </li>*@
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade" id="investigationReports">
+                @*@foreach (var r in Model.UnderInvestigationReports)
+            {
+
+            }*@
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Report name</th>
+                            <th scope="col">Reporter</th>
+                            <th scope="col">Hazard</th>
+                            <th scope="col">Date Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.UnderInvestigationReports.Count == 0)
+                        {
+                            <tr>
+                                <th colspan="5" class="text-center" scope="row">There aren`t any panding reports</th>
+                            </tr>
+
+                        }
+                        else
+                        {
+                            foreach (var r in Model.UnderInvestigationReports)
+                            {
+                                <tr>
+                                    <th scope="row">@r.ReporterName</th>
+                                    <td>@r.ReporterName</td>
+                                    <td>@r.HazardTitle</td>
+                                    <td>@r.ReportRegisterTime.ToShortDateString()</td>
+                                    <td><button class="btn btn-success">Assign Yourself</button></td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="pendingReports">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Report name</th>
+                            <th scope="col">Reporter</th>
+                            <th scope="col">Hazard</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.PendingReports.Count == 0)
+                        {
+                            <tr>
+                                <th colspan="5" scope="row">There aren`t any panding reports</th>
+                            </tr>
+
+                        }
+                        else
+                        {
+                            foreach (var r in Model.PendingReports)
+                            {
+                                <tr>
+                                    <th scope="row">@r.ReporterName</th>
+                                    <td>@r.ReporterName</td>
+                                    <td>@r.HazardTitle</td>
+                                    <td>@r.ReportRegisterTime.ToShortDateString()</td>
+                                    <td><button class="btn btn-success">Assign Yourself</button></td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            @*<div class="tab-pane fade" id="info">
+                <img class="d-inline" src="https://img.icons8.com/bubbles/50/000000/info.png" />
+                <p> Note, within this page you are able to visualize both <b>Padding Reports</b> and <b>Reports under investigation</b>.</p><br/>
+                <p>As an Investigator you are allowed to assign yourself to a Report, you can do so on the "Pending Reports" menu.</p>
+            </div>*@
+
+
+
+            </div>
+        </div>
+</div>
