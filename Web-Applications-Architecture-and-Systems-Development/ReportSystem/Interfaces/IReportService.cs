@@ -14,6 +14,5 @@ namespace ReportSystem.Interfaces
         List<Report> GetReportsByInvestigatorId(string userId);
         Report GetReportById(int reportId);
         Task EditReport(Report report);
-        Task DeleteReportById(int reportId);
     }
 }

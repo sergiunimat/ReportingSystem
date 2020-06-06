@@ -19,7 +19,6 @@
             </div>
             @* form that will be posted *@
 
-<<<<<<< Updated upstream
         <div class="col-lg-6 col-md-12 col-sm-12 ">
             @* report title *@
             <span asp-validation-for="ReportTitle" class="text-danger float-left font-italic"></span>
@@ -42,49 +41,30 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" asp-validation-for="ReportPicture">Picture</span>
-=======
-            <div class="col-lg-6 col-md-12 col-sm-12 ">
-
-                @* report title *@
-                <span asp-validation-for="ReportTitle" class="text-danger float-left font-italic"></span>
-                <small class="form-text text-muted font-italic float-right">Enter Report Title</small>
-                <div class="input-group mb-3 ">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 110px" id="ReportTitle">Title</span>
-                    </div>
-                    <input type="text" class="form-control" asp-for="ReportTitle" aria-describedby="ReportTitle" placeholder="">
->>>>>>> Stashed changes
                 </div>
-
-                @* report img *@
-                <small class="form-text text-muted font-italic float-right">Select picture from folder</small>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" asp-validation-for="ReportPicture">Picture</span>
-                    </div>
-                    <div class="custom-file">
-                        <input id="imgInp" type="file" class="custom-file-input" asp-for="ReportPicture" aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" id="inpPicText" for="imgInp"></label>
-                    </div>
+                <div class="custom-file">
+                    <input id="imgInp" type="file" class="custom-file-input" asp-for="ReportPicture" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" id="inpPicText" for="imgInp"></label>
                 </div>
-
-                <span asp-validation-for="Hazards" class="text-danger float-left font-italic"></span>
-                <small class="form-text text-muted font-italic float-right">Type new or chose existing hazard</small>
-                <div class="input-group mb-3 ">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 110px" id="reportHazard">Hazard</span>
-                    </div>
-                    @*<input type="text" class="form-control" list="hazards" asp-for="Hazards" aria-describedby="ReportTitle" placeholder="">*@
-                    <input type="text" list="hazards" class="form-control" asp-for="HazardTitle" required=""/>
-                    <datalist id="hazards">
-                        @foreach (var hazard in Model.Hazards)
-                        {
-                            <option>@hazard.HazardTitle</option>
-                        }
-                    </datalist>
-                </div>
-
             </div>
+
+            <span asp-validation-for="Hazards" class="text-danger float-left font-italic"></span>
+            <small class="form-text text-muted font-italic float-right">Type new or chose existing hazard</small>
+            <div class="input-group mb-3 ">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="reportHazard">Hazard</span>
+                </div>
+                @*<input type="text" class="form-control" list="hazards" asp-for="Hazards" aria-describedby="ReportTitle" placeholder="">*@
+                <input type="text" list="hazards" class="form-control" asp-for="HazardTitle"/>
+                <datalist id="hazards">
+                    @foreach (var hazard in Model.Hazards)
+                    {
+                        <option>@hazard.HazardTitle</option>
+                    }
+                </datalist>
+            </div>
+
+        </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
                 @* report description *@
                 <span asp-validation-for="ReportDescription" class="text-danger float-left font-italic"></span>
@@ -95,28 +75,23 @@
                 </div>
 
             </div>
-            @* location section *@
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            @*<span asp-validation-for="ReportLatitude" class="text-danger float-left font-italic"></span>
-            <span asp-validation-for="ReportLongitude" class="text-danger float-left font-italic"></span>*@
-            <small class="form-text text-muted font-italic float-right">Drag & drop the marker on the map to get a precise location</small>
-            <div class="input-group mb-3 ">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="width: 110px" id="ReportAddress">Location</span>
+            @* picture section *@
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <small class="form-text text-muted font-italic float-right">Drag & drop the marker on the map to get a precise location</small>
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 110px" id="ReportAddress">Location</span>
+                    </div>
+                    <input readonly id="computedAddress" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
                 </div>
-                <input readonly id="computedAddress" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+                <div class="input-group mb-3" id="map" style="height:400px">
+                    @*<button data-toggle="modal" data-target="#mapModal" class="btn btn-block shadow-animation" type="button"><img src="https://img.icons8.com/bubbles/40/000000/google-maps.png" /></button>*@
+                </div>
+                <input hidden id="rLat" asp-for="ReportLatitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+                <input hidden id="rLong" asp-for="ReportLongitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
             </div>
-            <div class="input-group mb-3" id="map" style="height:400px">
-                @*<button data-toggle="modal" data-target="#mapModal" class="btn btn-block shadow-animation" type="button"><img src="https://img.icons8.com/bubbles/40/000000/google-maps.png" /></button>*@
-            </div>
-<<<<<<< Updated upstream
             <button type="submit" class="btn btn-success">Success</button>
-=======
-            <input hidden id="rLat" asp-for="ReportLatitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
-            <input hidden id="rLong" asp-for="ReportLongitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
-        </div>
-            <button type="submit" class="btn btn-success">Create Report</button>
->>>>>>> Stashed changes
         </form>
     </div>
 </div>

@@ -14,16 +14,9 @@ namespace ReportSystem.ViewModels
         public int ReportId { get; set; }
         public String ReportTitle { get; set; }
         public string ReportDescription { get; set; }
-        [Required(ErrorMessage = "note, to create a report an image is necessary")]
         public IFormFile ReportPicture { get; set; }
-        
         public double ReportLatitude { get; set; }
-        
         public double ReportLongitude { get; set; }
-<<<<<<< Updated upstream
-=======
-        //[Required(ErrorMessage = "note, to create a report choose an existing hazard or add a new one")]
->>>>>>> Stashed changes
         public List<Hazard> Hazards { get; set; }
         public string HazardTitle { get; set; }
         public string PicturePath { get; set; }
