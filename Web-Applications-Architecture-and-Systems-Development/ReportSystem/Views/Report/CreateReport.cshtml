@@ -29,14 +29,8 @@
                 </div>
                 <input type="text" class="form-control" asp-for="ReportTitle" aria-describedby="ReportTitle" placeholder="">
             </div>
-            @* report description *@
-            @*<span asp-validation-for="ReportDescription" class="text-danger float-left font-italic"></span>
-        <small class="form-text text-muted font-italic float-right">Enter Report description</small>
-        <div class="form-group">
-            <label asp-for="ReportDescription" class="font-weight-bold">Description</label>
-            <textarea class="form-control" asp-for="ReportDescription" rows="3"></textarea>
-        </div>*@
-
+           
+            @* report img *@
             <small class="form-text text-muted font-italic float-right">Select picture from folder</small>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -91,7 +85,7 @@
                 <input hidden id="rLat" asp-for="ReportLatitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
                 <input hidden id="rLong" asp-for="ReportLongitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
             </div>
-            <button type="submit" class="btn btn-success">Success</button>
+            <button type="submit" class="btn btn-success">Create Report</button>
         </form>
     </div>
 </div>
