@@ -134,11 +134,83 @@ namespace ReportSystem.Controllers
             if (report != null)
             {
                 //all the comments must be added to the report i.e. create a new viewmodel  
-                return View();
+                var repToEdit = new ReportViewModel()
+                {
+                    ReportId = report.ReportId,
+                    ReportDescription = report.ReportDescription,
+                    ReportTitle = report.ReportTitle,
+                    HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
+                    PicturePath = report.ReportPicturePath,
+                    ReportLatitude = report.ReportLatitude,
+                    ReportLongitude = report.ReportLongitude,
+                    Hazards = _hazardService.GetAllHazards()
+                };
+                return View(repToEdit);
             }
 
             //get report by id then create object and send it to the page
             return NotFound();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditReport(ReportViewModel reportViewModel)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            await _hazardService.AddHazard(reportViewModel.HazardTitle);
+            var hazardId = _hazardService.GetHazardIdByTitle(reportViewModel.HazardTitle);
+            
+
+            
+            if (reportViewModel.ReportPicture==null)
+            {
+                
+                var editReport = new Report()
+                {
+                    ReportId = reportViewModel.ReportId,
+                    ReportTitle = reportViewModel.ReportTitle,
+                    ReportPicturePath = reportViewModel.PicturePath,
+                    ReportDescription = reportViewModel.ReportDescription,
+                    ReportLatitude = reportViewModel.ReportLatitude,
+                    ReportLongitude = reportViewModel.ReportLongitude,
+                    ReportReporterId = user.Id,
+                    //ReportStatus = false,
+                    ReportHazardId = hazardId,
+                    //ReportRegisterTime = DateTime.Now
+                };
+                await _reportService.EditReport(editReport);
+            }
+            /*I: if the reporter changes the picture*/
+            else
+            {
+                string uniqueFileName = null;
+                string uploadFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + reportViewModel.ReportPicture.FileName;
+                string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                reportViewModel.ReportPicture.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                var editReport = new Report()
+                {
+                    ReportId = reportViewModel.ReportId,
+                    ReportTitle = reportViewModel.ReportTitle,
+                    ReportPicturePath = uniqueFileName,
+                    ReportDescription = reportViewModel.ReportDescription,
+                    ReportLatitude = reportViewModel.ReportLatitude,
+                    ReportLongitude = reportViewModel.ReportLongitude,
+                    ReportReporterId = user.Id,
+                    //ReportStatus = false,
+                    ReportHazardId = hazardId,
+                    //ReportRegisterTime = DateTime.Now
+                };
+                await _reportService.EditReport(editReport);
+            }
+
+
+
+           
+            
+            /*I: so if the img field is not given then use the old one*/
+            return RedirectToAction("OwnReports");
         }
 
 

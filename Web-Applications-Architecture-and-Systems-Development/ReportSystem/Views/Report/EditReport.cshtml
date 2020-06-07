@@ -1,0 +1,124 @@
+﻿@model ReportSystem.ViewModels.ReportViewModel
+
+@{
+    ViewData["Title"] = "Create Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* main row  *@
+<div class="row align-content-center">
+
+    <div class="col-12 shadow">
+        
+        <form enctype="multipart/form-data" class="w-100 row m-0" asp-controller="Report" asp-action="EditReport" method="post">
+            <div class="col-12 pr-0">
+                <img class="d-inline" src="https://img.icons8.com/bubbles/80/000000/hand-with-pen.png" />
+                <p class="h1 d-inline align-middle">Edit Report</p>
+                <a class="shadow-animation float-right mr-0" asp-action="Index" asp-controller="Report">
+                    <img src="https://img.icons8.com/bubbles/80/000000/long-arrow-left.png" />
+                </a>
+            </div>
+            @*  *@
+
+            <div class="col-lg-6 col-md-12 col-sm-12 ">
+                @* report title *@
+                <span asp-validation-for="ReportTitle" class="text-danger float-left font-italic"></span>
+                <small class="form-text text-muted font-italic float-right">Enter Report Title</small>
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 110px" id="ReportTitle">Title</span>
+                    </div>
+                    <input type="text" class="form-control" asp-for="ReportTitle" aria-describedby="ReportTitle" placeholder="">
+                </div>
+
+                @* report img *@
+                <small class="form-text text-muted font-italic float-right">Select picture from folder</small>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" asp-validation-for="ReportPicture">Picture</span>
+                    </div>
+                    <div class="custom-file">
+                        <input id="imgInp" type="file" class="custom-file-input" asp-for="ReportPicture" aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" id="inpPicText" for="imgInp"></label>
+                    </div>
+                </div>
+
+
+
+                <span asp-validation-for="Hazards" class="text-danger float-left font-italic"></span>
+                <small class="form-text text-muted font-italic float-right">Type new or chose existing hazard</small>
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 110px" id="reportHazard">Hazard</span>
+                    </div>
+                    @*<input type="text" class="form-control" list="hazards" asp-for="Hazards" aria-describedby="ReportTitle" placeholder="">*@
+                    <input type="text" list="hazards" class="form-control" asp-for="HazardTitle" required="" />
+                    <datalist id="hazards">
+                        @foreach (var hazard in Model.Hazards)
+                        {
+                            <option>@hazard.HazardTitle</option>
+                        }
+                    </datalist>
+                </div>
+
+            </div>
+            @* description *@
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                @* report description *@
+                <span asp-validation-for="ReportDescription" class="text-danger float-left font-italic"></span>
+                <small class="form-text text-muted font-italic float-right">Enter Report description</small>
+                <div class="form-group">
+                    <label asp-for="ReportDescription" class="font-weight-bold">Description</label>
+                    <textarea class="form-control" asp-for="ReportDescription" rows="4"></textarea>
+                </div>
+
+            </div>
+            @* picture section *@
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <small class="form-text text-muted font-italic float-right">Drag & drop the marker on the map to get a precise location</small>
+            <div class="input-group mb-3 ">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 110px" id="ReportAddress">Location</span>
+                </div>
+                <input readonly id="computedAddress" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+            </div>
+            <input type="text" hidden id="lat" value="@Model.ReportLatitude">
+            <input type="text" hidden id="lng" value="@Model.ReportLongitude">
+            <div class="input-group mb-3" id="map" style="height:400px">
+                @*<button data-toggle="modal" data-target="#mapModal" class="btn btn-block shadow-animation" type="button"><img src="https://img.icons8.com/bubbles/40/000000/google-maps.png" /></button>*@
+            </div>
+            <input hidden asp-for="PicturePath" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+            <input hidden asp-for="ReportId" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+            <input hidden id="rLat" asp-for="ReportLatitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+            <input hidden id="rLong" asp-for="ReportLongitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+        </div>
+            <button type="submit" class="btn btn-success mx-auto mb-3 pr-5 pl-5">Edit Report</button>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @* scripts required for the picture and the google location *@
+        <script src="~/js/picture.js"></script>
+        <script src="~/js/GoogleMap.js"></script>
+        <script async defer
+                @*src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb9WI9xcpb1A5Gs2fnfKkh54EcXsw2wyE&callback=initMapTwo">*@
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb9WI9xcpb1A5Gs2fnfKkh54EcXsw2wyE&callback=EditInitMap">
+        </script>

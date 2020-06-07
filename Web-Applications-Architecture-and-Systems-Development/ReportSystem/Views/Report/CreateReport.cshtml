@@ -1,7 +1,7 @@
 ﻿@model ReportSystem.ViewModels.ReportViewModel
 
 @{
-    ViewData["Title"] = "Reports";
+    ViewData["Title"] = "Create Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -91,7 +91,7 @@
                 <input hidden id="rLat" asp-for="ReportLatitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
                 <input hidden id="rLong" asp-for="ReportLongitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
             </div>
-            <button type="submit" class="btn btn-success">Create Report</button>
+            <button type="submit" class="btn btn-success mx-auto mb-3 pr-5 pl-5">Create Report</button>
         </form>
     </div>
 </div>

@@ -153,3 +153,72 @@ function initMapTwo() {
 }
 
 
+
+
+
+function EditInitMap() {
+    var lat = parseFloat($('#lat').val());
+    var lng = parseFloat($('#lng').val());
+    
+    var universityLocation = {
+        lat: lat,
+        lng: lng
+    };
+
+    var map = new google.maps.Map(
+        document.getElementById('map'), {
+            zoom: 16,
+            mapTypeId: 'satellite',
+            center: {
+                lat: universityLocation.lat,
+                lng: universityLocation.lng
+            }
+        });
+
+
+    var marker = new google.maps.Marker({
+        position: {
+            lat: universityLocation.lat,
+            lng: universityLocation.lng
+        },
+        map: map,
+        draggable: true
+    });
+
+    var geocoder = new google.maps.Geocoder;
+    var infowindow = new google.maps.InfoWindow;
+
+
+    marker.addListener('dragend',
+        (ev) => {
+            console.log(ev.latLng.lat() + "," + ev.latLng.lng());
+            geocodeLatLng(geocoder, map, infowindow, ev.latLng.lat(), ev.latLng.lng());
+            $('#rLat').attr("value", ev.latLng.lat());
+            $('#rLong').attr("value", ev.latLng.lng());
+        });
+    
+    function geocodeLatLng(geocoder, map, infowindow, lat, lng) {
+
+        var latlng = { lat: lat, lng: lng };
+        geocoder.geocode({ 'location': latlng }, function (results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    //map.setZoom(11);
+                    infowindow.setContent(results[0].formatted_address);
+                    infowindow.open(map, marker);
+                    //console.log(results[0].formatted_address);
+                    $('#computedAddress').attr("value", results[0].formatted_address);
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    };
+    /*I: this is to load the address so that the user can see it.*/
+    geocodeLatLng(geocoder, map, infowindow, lat, lng);
+
+};
+
+

@@ -51,10 +51,16 @@ namespace ReportSystem.Services
 
         public async Task EditReport(Report report)
         {
-           var dbReport = await _ctx.Reports.FirstOrDefaultAsync(r => r.ReportId == report.ReportId);
-           dbReport = report;
-           _ctx.Reports.Update(dbReport);
-           await _ctx.SaveChangesAsync();
+            try
+            {
+                _ctx.Reports.Update(report);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
         }
 
