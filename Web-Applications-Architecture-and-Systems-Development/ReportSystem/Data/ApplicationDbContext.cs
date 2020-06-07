@@ -18,5 +18,6 @@ namespace ReportSystem.Data
         public DbSet<Investigation> Investigations { get; set; }
         public DbSet<Hazard> Hazards { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<ReportStatus> ReportStatuses{ get; set; }
     }
 }

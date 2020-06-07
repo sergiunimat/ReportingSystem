@@ -44,7 +44,8 @@ namespace ReportSystem.Controllers
             
             foreach (var r in listOfReports)
             {
-                if (!r.ReportStatus)
+                /*I: if the report is pending - i.e. in this case an investigator can be assigned to a report ONLY in this case*/
+                if (r.ReportStatus==0)
                 {
                     var report = new SpecificReportViewModel()
                     {
@@ -62,6 +63,7 @@ namespace ReportSystem.Controllers
                     };
                     pendingReports.Add(report);
                 }
+                /*I: if the report is not pending i.e. anything else - an investigator is already assigned to the report*/
                 else
                 {
                     var report = new SpecificReportViewModel()

@@ -11,7 +11,7 @@ namespace ReportSystem.Models
         public String ReportTitle { get; set; }
         public string ReportDescription { get; set; }
         public string ReportPicturePath { get; set; }
-        public bool ReportStatus { get; set; }
+        public int ReportStatus { get; set; }
         public double ReportLatitude { get; set; }
         public double ReportLongitude { get; set; }
         public string ReportReporterId { get; set; }

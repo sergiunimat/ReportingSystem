@@ -114,7 +114,7 @@ namespace ReportSystem.Controllers
                     ReportLatitude = reportViewModel.ReportLatitude,
                     ReportLongitude = reportViewModel.ReportLongitude,
                     ReportReporterId = user.Id,
-                    ReportStatus = false,
+                    ReportStatus = 0,
                     ReportHazardId = hazardId,
                     ReportRegisterTime = DateTime.Now
 
@@ -174,9 +174,7 @@ namespace ReportSystem.Controllers
                     ReportLatitude = reportViewModel.ReportLatitude,
                     ReportLongitude = reportViewModel.ReportLongitude,
                     ReportReporterId = user.Id,
-                    //ReportStatus = false,
                     ReportHazardId = hazardId,
-                    //ReportRegisterTime = DateTime.Now
                 };
                 await _reportService.EditReport(editReport);
             }
@@ -198,9 +196,7 @@ namespace ReportSystem.Controllers
                     ReportLatitude = reportViewModel.ReportLatitude,
                     ReportLongitude = reportViewModel.ReportLongitude,
                     ReportReporterId = user.Id,
-                    //ReportStatus = false,
                     ReportHazardId = hazardId,
-                    //ReportRegisterTime = DateTime.Now
                 };
                 await _reportService.EditReport(editReport);
             }
