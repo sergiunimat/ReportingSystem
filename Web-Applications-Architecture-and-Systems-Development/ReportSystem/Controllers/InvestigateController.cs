@@ -20,18 +20,21 @@ namespace ReportSystem.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IReportService _reportService;
         private readonly IHazardService _hazardService;
+        private readonly IReportStatus _reportStatus;
 
         public InvestigateController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IHostingEnvironment hostingEnvironment,
             IReportService reportService,
-            IHazardService hazardService)
+            IHazardService hazardService,
+            IReportStatus reportStatus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _hostingEnvironment = hostingEnvironment;
             _reportService = reportService;
             _hazardService = hazardService;
+            _reportStatus = reportStatus;
         }
         public async Task<IActionResult> Index()
         {
@@ -45,7 +48,7 @@ namespace ReportSystem.Controllers
             foreach (var r in listOfReports)
             {
                 /*I: if the report is pending - i.e. in this case an investigator can be assigned to a report ONLY in this case*/
-                if (r.ReportStatus==0)
+                if (r.ReportStatus==1)
                 {
                     var report = new SpecificReportViewModel()
                     {
@@ -58,6 +61,7 @@ namespace ReportSystem.Controllers
                         ReporterName = _userManager.FindByIdAsync(r.ReportReporterId).Result.UserName,
                         ReporterId = r.ReportReporterId,
                         Status = r.ReportStatus,
+                        ReportStausText = _reportStatus.GetReportStatusById(r.ReportStatus).StatusName
                         //InvestigatorId = investigatroId,
                         //InvestigatorName = _userManager.FindByIdAsync(r.ReportInvestigatorId).Result.UserName
                     };

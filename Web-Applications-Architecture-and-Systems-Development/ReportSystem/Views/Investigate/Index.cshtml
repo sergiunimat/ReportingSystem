@@ -15,7 +15,7 @@
                 <a class="nav-link" data-toggle="tab" id="clickMenu" href="#investigationReports">Reports Under Investigation</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#pendingReports">Pending Reports</a>
+                <a id="activeTrick" class="nav-link" data-toggle="tab" href="#pendingReports">Pending Reports</a>
             </li>
             @*<li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#info">Info</a>
@@ -23,42 +23,42 @@
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade" id="investigationReports">
-                @*@foreach (var r in Model.UnderInvestigationReports)
-            {
-
-            }*@
+        
                 <table class="table table-hover">
                     <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Report name</th>
-                            <th scope="col">Reporter</th>
-                            <th scope="col">Hazard</th>
-                            <th scope="col">Date Created</th>
-                        </tr>
+                    <tr>
+                        <th scope="col">Report name</th>
+                        <th scope="col">Reporter</th>
+                        <th scope="col">Hazard</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
                     </thead>
                     <tbody>
 
-                        @if (Model.UnderInvestigationReports.Count == 0)
+                    @if (Model.UnderInvestigationReports.Count == 0)
+                    {
+                        <tr>
+                            <th colspan="5" class="text-center" scope="row">There aren`t any panding reports</th>
+                        </tr>
+
+                    }
+                    else
+                    {
+                        foreach (var r in Model.UnderInvestigationReports)
                         {
                             <tr>
-                                <th colspan="5" class="text-center" scope="row">There aren`t any panding reports</th>
+                                <th scope="row">@r.ReporterName</th>
+                                <td>@r.ReporterName</td>
+                                <td>@r.HazardTitle</td>
+                                <td>@r.ReportRegisterTime.ToShortDateString()</td>
+                                <td>@r.ReportStausText</td>
+                                <td><button class="btn btn-success">Assign Yourself</button></td>
+
                             </tr>
-
                         }
-                        else
-                        {
-                            foreach (var r in Model.UnderInvestigationReports)
-                            {
-                                <tr>
-                                    <th scope="row">@r.ReporterName</th>
-                                    <td>@r.ReporterName</td>
-                                    <td>@r.HazardTitle</td>
-                                    <td>@r.ReportRegisterTime.ToShortDateString()</td>
-                                    <td><button class="btn btn-success">Assign Yourself</button></td>
-
-                                </tr>
-                            }
-                        }
+                    }
 
                     </tbody>
                 </table>
@@ -66,37 +66,39 @@
             <div class="tab-pane fade" id="pendingReports">
                 <table class="table table-hover">
                     <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Report name</th>
-                            <th scope="col">Reporter</th>
-                            <th scope="col">Hazard</th>
-                            <th scope="col">Date Created</th>
-                            <th scope="col"></th>
-                        </tr>
+                    <tr>
+                        <th scope="col">Report name</th>
+                        <th scope="col">Reporter</th>
+                        <th scope="col">Hazard</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="pendingBody">
 
-                        @if (Model.PendingReports.Count == 0)
+                    @if (Model.PendingReports.Count == 0)
+                    {
+                        <tr>
+                            <th colspan="5" scope="row">There aren`t any panding reports</th>
+                        </tr>
+
+                    }
+                    else
+                    {
+                        foreach (var r in Model.PendingReports)
                         {
                             <tr>
-                                <th colspan="5" scope="row">There aren`t any panding reports</th>
+                                <th scope="row">@r.ReporterName</th>
+                                <td>@r.ReporterName</td>
+                                <td>@r.HazardTitle</td>
+                                <td>@r.ReportRegisterTime.ToShortDateString()</td>
+                                <td>@r.ReportStausText</td>
+                                <td><button class="btn btn-success">Assign Yourself</button></td>
+
                             </tr>
-
                         }
-                        else
-                        {
-                            foreach (var r in Model.PendingReports)
-                            {
-                                <tr>
-                                    <th scope="row">@r.ReporterName</th>
-                                    <td>@r.ReporterName</td>
-                                    <td>@r.HazardTitle</td>
-                                    <td>@r.ReportRegisterTime.ToShortDateString()</td>
-                                    <td><button class="btn btn-success">Assign Yourself</button></td>
-
-                                </tr>
-                            }
-                        }
+                    }
 
                     </tbody>
                 </table>
@@ -109,6 +111,14 @@
 
 
 
-            </div>
         </div>
+    </div>
 </div>
+
+
+<script>
+    //once, the data is fetched into the tab we click on it and show, active wont work since it will display empty tab content - it loads before the data is loading.
+    $(function () {
+        $('#activeTrick').click();
+    });
+</script>
