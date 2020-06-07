@@ -21,6 +21,7 @@ namespace ReportSystem.Controllers
         private readonly IReportService _reportService;
         private readonly IHazardService _hazardService;
         private readonly ICommentService _commentService;
+        private readonly IReportStatus _reportStatus;
 
         public ReportController(
             UserManager<ApplicationUser> userManager,
@@ -28,7 +29,8 @@ namespace ReportSystem.Controllers
             IHostingEnvironment hostingEnvironment,
             IReportService reportService,
             IHazardService hazardService,
-            ICommentService commentService)
+            ICommentService commentService,
+            IReportStatus reportStatus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -36,6 +38,7 @@ namespace ReportSystem.Controllers
             _reportService = reportService;
             _hazardService = hazardService;
             _commentService = commentService;
+            _reportStatus = reportStatus;
         }
 
         public IActionResult Index()
@@ -51,7 +54,7 @@ namespace ReportSystem.Controllers
             var listDto = new List<ReportViewModel>();
             foreach (var report in listOfOwnReports)
             {
-                
+                var statusName = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName;
                 var r = new ReportViewModel()
                 {
                     ReportId = report.ReportId,
@@ -60,6 +63,7 @@ namespace ReportSystem.Controllers
                     PicturePath = report.ReportPicturePath,
                     ReportLatitude = report.ReportLatitude,
                     ReportLongitude = report.ReportLongitude,
+                    ReportStausText = statusName,
                     HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
                     ReportRegisterTime = report.ReportRegisterTime,
                     ReportCommentCount = _commentService.CountCommentsByReportId(report.ReportId),
@@ -114,7 +118,7 @@ namespace ReportSystem.Controllers
                     ReportLatitude = reportViewModel.ReportLatitude,
                     ReportLongitude = reportViewModel.ReportLongitude,
                     ReportReporterId = user.Id,
-                    ReportStatus = 0,
+                    ReportStatus = 1,
                     ReportHazardId = hazardId,
                     ReportRegisterTime = DateTime.Now
 
@@ -143,7 +147,9 @@ namespace ReportSystem.Controllers
                     PicturePath = report.ReportPicturePath,
                     ReportLatitude = report.ReportLatitude,
                     ReportLongitude = report.ReportLongitude,
-                    Hazards = _hazardService.GetAllHazards()
+                    Hazards = _hazardService.GetAllHazards(),
+                    ReportStatusId = report.ReportStatus
+                    
                 };
                 return View(repToEdit);
             }
@@ -175,6 +181,7 @@ namespace ReportSystem.Controllers
                     ReportLongitude = reportViewModel.ReportLongitude,
                     ReportReporterId = user.Id,
                     ReportHazardId = hazardId,
+                    ReportStatus = reportViewModel.ReportStatusId
                 };
                 await _reportService.EditReport(editReport);
             }
@@ -197,6 +204,7 @@ namespace ReportSystem.Controllers
                     ReportLongitude = reportViewModel.ReportLongitude,
                     ReportReporterId = user.Id,
                     ReportHazardId = hazardId,
+                    ReportStatus = reportViewModel.ReportStatusId
                 };
                 await _reportService.EditReport(editReport);
             }
@@ -252,6 +260,7 @@ namespace ReportSystem.Controllers
                     CurrentUserId = currentUserId,
                     ReporterId = report.ReportReporterId,
                     ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
+                    ReportStausText = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName,
                     //InvestigatorId = report.ReportInvestigatorId,
                     //InvestigatorName = _userManager.FindByIdAsync(report.ReportInvestigatorId).Result.UserName
                 };

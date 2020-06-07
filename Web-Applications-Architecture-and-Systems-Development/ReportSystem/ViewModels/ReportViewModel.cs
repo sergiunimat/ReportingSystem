@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using ReportSystem.Models;
@@ -29,8 +30,9 @@ namespace ReportSystem.ViewModels
         public string PicturePath { get; set; }
         public DateTime ReportRegisterTime { get; set; }
         public int ReportCommentCount { get; set; }
-
         public string ReporterName { get; set; }
+        public int ReportStatusId { get; set; }
+        public string ReportStausText { get; set; }
         //public ApplicationUser ReportReporter { get; set; }
         //public ApplicationUser ReportInvestigator { get; set; }
         //public Investigation Investigation { get; set; }

@@ -6,7 +6,7 @@ using ReportSystem.Models;
 
 namespace ReportSystem.Interfaces
 {
-    interface IReportStatus
+    public interface IReportStatus
     {
         ReportStatus GetReportStatusById(int reportStatusId);
     }

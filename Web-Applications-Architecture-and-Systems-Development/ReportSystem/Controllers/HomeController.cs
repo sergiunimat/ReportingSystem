@@ -21,6 +21,7 @@ namespace ReportSystem.Controllers
         private readonly IReportService _reportService;
         private readonly IHazardService _hazardService;
         private readonly ICommentService _commentService;
+        private readonly IReportStatus _reportStatus;
 
 
         public HomeController(
@@ -29,7 +30,8 @@ namespace ReportSystem.Controllers
                                 UserManager<ApplicationUser> userManager,
                                 IReportService reportService,
                                 IHazardService hazardService,
-                                ICommentService commentService
+                                ICommentService commentService,
+                                    IReportStatus reportStatus
                                 )
         {
             _logger = logger;
@@ -38,6 +40,7 @@ namespace ReportSystem.Controllers
             _reportService = reportService;
             _hazardService = hazardService;
             _commentService = commentService;
+            _reportStatus = reportStatus;
         }
 
         
@@ -49,7 +52,7 @@ namespace ReportSystem.Controllers
                 var listDto = new List<ReportViewModel>();
                 foreach (var report in listofReports)
                 {
-
+                    var statusName = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName;
                     var r = new ReportViewModel()
                     {
                         ReportId = report.ReportId,
@@ -58,6 +61,7 @@ namespace ReportSystem.Controllers
                         PicturePath = report.ReportPicturePath,
                         ReportLatitude = report.ReportLatitude,
                         ReportLongitude = report.ReportLongitude,
+                        ReportStausText = statusName,
                         HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
                         ReportRegisterTime = report.ReportRegisterTime,
                         ReportCommentCount = _commentService.CountCommentsByReportId(report.ReportId),
@@ -69,10 +73,9 @@ namespace ReportSystem.Controllers
                 return View(listDto);
             }
 
+
             return NotFound();
-            //return User != null && User.Identity.IsAuthenticated
-            //    ? (IActionResult) RedirectToAction("LogedInIndex", "Home", new {userId = _userManager.GetUserId(User)})
-            //    : View();
+            
         }
         [Authorize]
         public IActionResult LogedInIndex(string userId)

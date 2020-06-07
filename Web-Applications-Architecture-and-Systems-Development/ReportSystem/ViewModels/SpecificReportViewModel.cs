@@ -26,6 +26,7 @@ namespace ReportSystem.ViewModels
         public string InvestigatorId { get; set; }
         public string InvestigatorName { get; set; }
         public int Status { get; set; }
+        public string ReportStausText { get; set; }
 
     }
 }

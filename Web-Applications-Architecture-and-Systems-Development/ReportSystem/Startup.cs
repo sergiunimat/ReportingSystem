@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using ReportSystem.Interfaces;
 using ReportSystem.Models;
 using ReportSystem.Services;
+using ReportStatus = ReportSystem.Services.ReportStatus;
 
 namespace ReportSystem
 {
@@ -62,6 +63,7 @@ namespace ReportSystem
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IHazardService, HazardService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IReportStatus, ReportStatus>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
