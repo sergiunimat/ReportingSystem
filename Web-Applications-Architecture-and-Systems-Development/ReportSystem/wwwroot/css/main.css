@@ -1,7 +1,16 @@
 ﻿.shadow-animation:hover {
     box-shadow: 0 0 11px rgba(33,33,33,.2);
     background-color: white;
+   
 }
+
+.shadow-animation-out:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+    background-color: white;
+    transition: box-shadow 0.4s ease-in-out;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
 
 .shadow-animation-edit:hover {
     box-shadow: 0 0 11px rgba(33,33,33,.2);

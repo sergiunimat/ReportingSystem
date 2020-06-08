@@ -65,6 +65,7 @@ namespace ReportSystem
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IReportStatus, ReportStatus>();
             services.AddScoped<IInvestigationService, InvestigationService>();
+            services.AddScoped<ILikeService, LikeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

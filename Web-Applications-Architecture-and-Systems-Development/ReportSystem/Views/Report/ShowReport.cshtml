@@ -6,11 +6,27 @@
     var currentDate = DateTime.Now;
 }
 
+
+@* if user is logged in *@
+@* if the there is a like from this user then dislike if there isnt then there is a like *@
+@if (User.Identity.IsAuthenticated)
+{
+    if (Model.Liked)
+    {
+        <a asp-controller="Report" asp-action="LikeHandler" asp-route-reportId="@Model.ReportId" asp-route-userId="@Model.CurrentUserId" class="shadow-animation-out border rounded-circle" style="bottom: 10%; right: 1%; position: fixed; z-index: 100;"><img src="https://img.icons8.com/plasticine/100/000000/poor-quality.png" /></a>
+    }
+    else
+    {
+        <a asp-controller="Report" asp-action="LikeHandler" asp-route-reportId="@Model.ReportId" asp-route-userId="@Model.CurrentUserId" class="shadow-animation-out border rounded-circle" style="bottom: 10%; right: 1%; position: fixed; z-index: 100;"><img src="https://img.icons8.com/plasticine/100/000000/good-quality.png" /></a>
+    }
+}
+
 <div class="row shadow">
+
     <div class="col-12 shadow pr-0">
         <img class="d-inline" src="https://img.icons8.com/bubbles/90/000000/file.png" />
         <p class="h2 d-inline align-middle">@Model.ReportTitle</p>
-        <a class="shadow-animation float-right" asp-action="Index" asp-controller="Admin">
+        <a class="shadow-animation-out float-right rounded" asp-action="Index" asp-controller="Admin">
             <img src="https://img.icons8.com/bubbles/90/000000/long-arrow-left.png" />
         </a>
     </div>
@@ -63,7 +79,7 @@
 
     <div class="col-12 shadow mt-3">
         @* map *@
-        <div class="input-group mb-3" id="map" style="height:400px">
+        <div class="input-group mb-3" id="map" style="height: 400px">
             @*<button data-toggle="modal" data-target="#mapModal" class="btn btn-block shadow-animation" type="button"><img src="https://img.icons8.com/bubbles/40/000000/google-maps.png" /></button>*@
         </div>
     </div>
@@ -74,14 +90,14 @@
             <p class="h3 d-inline align-middle">Comments</p>
             @if (User.Identity.IsAuthenticated)
             {
-                <a onclick="commentAjaxRequest('@Model.ReportId')" data-toggle="modal" data-target="#exampleModal"><img class="float-right shadow-animation" src="https://img.icons8.com/bubbles/80/000000/plus.png" /></a>
+                <a onclick="commentAjaxRequest('@Model.ReportId')" data-toggle="modal" data-target="#exampleModal"><img class="float-right shadow-animation-out rounded-pill mt-3" src="https://img.icons8.com/bubbles/80/000000/plus.png" /></a>
             }
         </div>
 
-            @foreach (var comment in Model.ReportCommentList)
+        @foreach (var comment in Model.ReportCommentList)
+        {
+            if (Model.CurrentUserId == comment.UserId)
             {
-                if (Model.CurrentUserId==comment.UserId)
-                {
                 <div class="card w-100 mb-4">
                     <div class="card-header">
                         @comment.CommentCreateDate
@@ -95,9 +111,9 @@
                         </blockquote>
                     </div>
                 </div>
-                }
-                else
-                {
+            }
+            else
+            {
                 <div class="card w-100 mb-4">
                     <div class="card-header">
                         @comment.CommentCreateDate
@@ -109,9 +125,9 @@
                         </blockquote>
                     </div>
                 </div>
-                }
-                
             }
+
+        }
 
     </div>
     <input type="text" hidden id="lat" value="@Model.ReportLatitude">

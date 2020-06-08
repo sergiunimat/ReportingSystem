@@ -33,6 +33,7 @@ namespace ReportSystem.ViewModels
         public string ReporterName { get; set; }
         public int ReportStatusId { get; set; }
         public string ReportStausText { get; set; }
+        public int ReportLikes { get; set; }
         //public ApplicationUser ReportReporter { get; set; }
         //public ApplicationUser ReportInvestigator { get; set; }
         //public Investigation Investigation { get; set; }
