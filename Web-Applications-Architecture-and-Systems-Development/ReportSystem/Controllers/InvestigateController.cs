@@ -21,13 +21,15 @@ namespace ReportSystem.Controllers
         private readonly IReportService _reportService;
         private readonly IHazardService _hazardService;
         private readonly IReportStatus _reportStatus;
+        private readonly IInvestigationService _investigationService;
 
         public InvestigateController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IHostingEnvironment hostingEnvironment,
             IReportService reportService,
             IHazardService hazardService,
-            IReportStatus reportStatus)
+            IReportStatus reportStatus,
+            IInvestigationService investigationService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,6 +37,7 @@ namespace ReportSystem.Controllers
             _reportService = reportService;
             _hazardService = hazardService;
             _reportStatus = reportStatus;
+            _investigationService = investigationService;
         }
         public async Task<IActionResult> Index()
         {
@@ -82,7 +85,8 @@ namespace ReportSystem.Controllers
                         ReporterId = r.ReportReporterId,
                         Status = r.ReportStatus,
                         InvestigatorId = r.ReportInvestigatorId,
-                        InvestigatorName = _userManager.FindByIdAsync(r.ReportInvestigatorId).Result.UserName
+                        InvestigatorName = _userManager.FindByIdAsync(r.ReportInvestigatorId).Result.UserName,
+                        ReportStausText = _reportStatus.GetReportStatusById(r.ReportStatus).StatusName
                     };
                     activeReports.Add(report);
                 }
@@ -95,6 +99,38 @@ namespace ReportSystem.Controllers
                 UnderInvestigationReports = activeReports
             };
             return View(Dto);
+        }
+
+        public async Task<IActionResult> AssignInvestigationRedirect(int reportId)
+        {
+            return ViewComponent("AssignInvestigation", new { reportId = reportId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AssignReportToInvestigation(InvestigationViewModel model)
+        {
+            //1. create new investigation
+            if (ModelState.IsValid)
+            {
+                var newInvestigation = new Investigation()
+                {
+                    //note, since an investigation can only have one report from report the status can be taken
+                    ReportId = model.ReportId,
+                    InvestigationDescription = model.InvestigationDescription,
+                    InvestigatorId = model.InvestigatorId
+                };
+                _investigationService.CreateInvestigation(newInvestigation);
+                var alterRep = _reportService.GetReportById(model.ReportId);
+                alterRep.ReportStatus = model.InvestigationStatus;
+                alterRep.ReportInvestigatorId = model.InvestigatorId;
+                await _reportService.EditReport(alterRep);
+                return RedirectToAction("Index");
+            }
+            //2. if 1==success - alter the report (I) change status (II) add investigatorid to report
+            //----???---- shall we add investigaion id to report? n/y?
+
+            return RedirectToAction("Index");
         }
     }
 }

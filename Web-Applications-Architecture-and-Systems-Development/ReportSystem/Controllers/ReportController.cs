@@ -246,25 +246,50 @@ namespace ReportSystem.Controllers
 
                 string currentUserId;
                 currentUserId = currentUser==null ? "" : currentUser.Id;
-                var currentReport = new SpecificReportViewModel()
+                if (report.ReportInvestigatorId != null)
                 {
-                    ReportId = report.ReportId,
-                    ReportTitle = report.ReportTitle,
-                    ReportDescription = report.ReportDescription,
-                    HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
-                    PicturePath = report.ReportPicturePath,
-                    ReportRegisterTime = report.ReportRegisterTime,
-                    ReportLongitude = report.ReportLongitude,
-                    ReportLatitude = report.ReportLatitude,
-                    ReportCommentList = commentListDto,
-                    CurrentUserId = currentUserId,
-                    ReporterId = report.ReportReporterId,
-                    ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
-                    ReportStausText = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName,
-                    //InvestigatorId = report.ReportInvestigatorId,
-                    //InvestigatorName = _userManager.FindByIdAsync(report.ReportInvestigatorId).Result.UserName
-                };
-                return View(currentReport);
+                    var currentReport = new SpecificReportViewModel()
+                    {
+                        ReportId = report.ReportId,
+                        ReportTitle = report.ReportTitle,
+                        ReportDescription = report.ReportDescription,
+                        HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
+                        PicturePath = report.ReportPicturePath,
+                        ReportRegisterTime = report.ReportRegisterTime,
+                        ReportLongitude = report.ReportLongitude,
+                        ReportLatitude = report.ReportLatitude,
+                        ReportCommentList = commentListDto,
+                        CurrentUserId = currentUserId,
+                        ReporterId = report.ReportReporterId,
+                        ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
+                        ReportStausText = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName,
+                        InvestigatorId = report.ReportInvestigatorId,
+                        InvestigatorName = _userManager.FindByIdAsync(report.ReportInvestigatorId).Result.UserName
+                    };
+                    return View(currentReport);
+                }
+                else
+                {
+                    var currentReport = new SpecificReportViewModel()
+                    {
+                        ReportId = report.ReportId,
+                        ReportTitle = report.ReportTitle,
+                        ReportDescription = report.ReportDescription,
+                        HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
+                        PicturePath = report.ReportPicturePath,
+                        ReportRegisterTime = report.ReportRegisterTime,
+                        ReportLongitude = report.ReportLongitude,
+                        ReportLatitude = report.ReportLatitude,
+                        ReportCommentList = commentListDto,
+                        CurrentUserId = currentUserId,
+                        ReporterId = report.ReportReporterId,
+                        ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
+                        ReportStausText = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName,
+                        //InvestigatorId = report.ReportInvestigatorId,
+                        InvestigatorName = "not assigned yet."
+                    };
+                    return View(currentReport);
+                }
             }
 
             //get report by id then create object and send it to the page

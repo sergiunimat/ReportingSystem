@@ -1,0 +1,59 @@
+﻿@model ReportSystem.ViewModels.InvestigationViewModel
+
+
+    <form method="post" asp-controller="Investigate" asp-action="AssignReportToInvestigation">
+
+
+        <div class="form-group row pl-5 pr-5 m-0">
+            <label asp-for="ReportTitle" class="col-sm-6 col-form-label h3">Report Title</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="ReportTitle" value="@Model.ReportTitle">
+            </div>
+        </div>
+
+        <div class="form-group row pl-5 pr-5 m-0">
+            <label asp-for="InvestigatorName" class="col-sm-6 col-form-label h3">Investigator Name</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="InvestigatorName" value="@Model.InvestigatorName">
+            </div>
+        </div>
+
+        <div class="form-group row pl-5 pr-5 m-0">
+            <label asp-for="InvestigatorEmail" class="col-sm-6 col-form-label h3">Investigator Email</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="InvestigatorEmail" value="@Model.InvestigatorEmail">
+            </div>
+        </div>
+
+        <div class="form-group row pl-5 pr-5 m-0">
+            <label asp-for="InvestigationStatus" class="col-sm-6 col-form-label h3">New Status</label>
+            <div class="col-sm-6">
+                <select asp-for="InvestigationStatus" class="custom-select" id="inputGroupSelect01" required="">
+                    <option selected>Choose...</option>
+                    <option value="5">Under Investigation</option>
+                    <option value="2">Closed</option>
+                    <option value="3">Investigated</option>
+                    <option value="4">No action Required</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row pl-5 pr-5 ml-0">
+            <label asp-for="InvestigationDescription" class="col-sm-6 col-form-label h3">Description</label>
+            <div class="form-group col-12">
+                <textarea required="" asp-for="InvestigationDescription" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        </div>
+
+        <input hidden asp-for="ReportId" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+        <input hidden asp-for="InvestigatorId" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+
+
+        <div class="col-12 text-center mb-4">
+            <button type="submit" class="btn btn-success"> Assign Investigation</button>
+        </div>
+
+
+
+
+    </form>

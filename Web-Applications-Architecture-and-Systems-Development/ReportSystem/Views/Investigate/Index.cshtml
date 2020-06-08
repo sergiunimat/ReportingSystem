@@ -8,8 +8,8 @@
 }
 
 <div class="row w-100">
-    <div class="col-12">
-        <ul class="nav nav-tabs">
+    <div class="col-12 shadow ">
+        <ul class="nav nav-tabs mt-5 mb-5">
 
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" id="clickMenu" href="#investigationReports">Reports Under Investigation</a>
@@ -18,47 +18,49 @@
                 <a id="activeTrick" class="nav-link" data-toggle="tab" href="#pendingReports">Pending Reports</a>
             </li>
             @*<li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#info">Info</a>
-            </li>*@
+                    <a class="nav-link active" data-toggle="tab" href="#info">Info</a>
+                </li>*@
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade" id="investigationReports">
-        
+
                 <table class="table table-hover">
                     <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Report name</th>
-                        <th scope="col">Reporter</th>
-                        <th scope="col">Hazard</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Status</th>
+                        <tr>
+                            <th scope="col">Report name</th>
+                            <th scope="col">Reporter</th>
+                            <th scope="col">Investigator</th>
+                            <th scope="col">Hazard</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Status</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
 
-                    @if (Model.UnderInvestigationReports.Count == 0)
-                    {
-                        <tr>
-                            <th colspan="5" class="text-center" scope="row">There aren`t any panding reports</th>
-                        </tr>
-
-                    }
-                    else
-                    {
-                        foreach (var r in Model.UnderInvestigationReports)
+                        @if (Model.UnderInvestigationReports.Count == 0)
                         {
                             <tr>
-                                <th scope="row">@r.ReporterName</th>
-                                <td>@r.ReporterName</td>
-                                <td>@r.HazardTitle</td>
-                                <td>@r.ReportRegisterTime.ToShortDateString()</td>
-                                <td>@r.ReportStausText</td>
-                                <td><button class="btn btn-success">Assign Yourself</button></td>
-
+                                <th colspan="5" class="text-center" scope="row">There aren`t any panding reports</th>
                             </tr>
+
                         }
-                    }
+                        else
+                        {
+                            foreach (var r in Model.UnderInvestigationReports)
+                            {
+                                <tr>
+                                    <th scope="row">@r.ReportTitle</th>
+                                    <td>@r.ReporterName</td>
+                                    <td>@r.InvestigatorName</td>
+                                    <td>@r.HazardTitle</td>
+                                    <td>@r.ReportRegisterTime.ToShortDateString()</td>
+                                    <td>@r.ReportStausText</td>
+                                    @*<td><button class="btn btn-success btn-block">Assign Yourself</button></td>*@
+
+                                </tr>
+                            }
+                        }
 
                     </tbody>
                 </table>
@@ -66,51 +68,70 @@
             <div class="tab-pane fade" id="pendingReports">
                 <table class="table table-hover">
                     <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Report name</th>
-                        <th scope="col">Reporter</th>
-                        <th scope="col">Hazard</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Report name</th>
+                            <th scope="col">Reporter</th>
+                            <th scope="col">Hazard</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
                     </thead>
                     <tbody id="pendingBody">
 
-                    @if (Model.PendingReports.Count == 0)
-                    {
-                        <tr>
-                            <th colspan="5" scope="row">There aren`t any panding reports</th>
-                        </tr>
-
-                    }
-                    else
-                    {
-                        foreach (var r in Model.PendingReports)
+                        @if (Model.PendingReports.Count == 0)
                         {
                             <tr>
-                                <th scope="row">@r.ReporterName</th>
-                                <td>@r.ReporterName</td>
-                                <td>@r.HazardTitle</td>
-                                <td>@r.ReportRegisterTime.ToShortDateString()</td>
-                                <td>@r.ReportStausText</td>
-                                <td><button class="btn btn-success">Assign Yourself</button></td>
-
+                                <th colspan="5" scope="row">There aren`t any panding reports</th>
                             </tr>
+
                         }
-                    }
+                        else
+                        {
+                            foreach (var r in Model.PendingReports)
+                            {
+                                <tr>
+                                    <th scope="row">@r.ReporterName</th>
+                                    <td>@r.ReporterName</td>
+                                    <td>@r.HazardTitle</td>
+                                    <td>@r.ReportRegisterTime.ToShortDateString()</td>
+                                    <td>@r.ReportStausText</td>
+                                    <td><button onclick="investigationtAjaxRequest('@r.ReportId')" data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Assign Yourself</button></td>
+
+                                </tr>
+                            }
+                        }
 
                     </tbody>
                 </table>
             </div>
             @*<div class="tab-pane fade" id="info">
-                <img class="d-inline" src="https://img.icons8.com/bubbles/50/000000/info.png" />
-                <p> Note, within this page you are able to visualize both <b>Padding Reports</b> and <b>Reports under investigation</b>.</p><br/>
-                <p>As an Investigator you are allowed to assign yourself to a Report, you can do so on the "Pending Reports" menu.</p>
-            </div>*@
+                    <img class="d-inline" src="https://img.icons8.com/bubbles/50/000000/info.png" />
+                    <p> Note, within this page you are able to visualize both <b>Padding Reports</b> and <b>Reports under investigation</b>.</p><br/>
+                    <p>As an Investigator you are allowed to assign yourself to a Report, you can do so on the "Pending Reports" menu.</p>
+                </div>*@
 
 
 
+        </div>
+    </div>
+</div>
+
+@* Modal to assign investigation *@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img class="d-inline" src="https://img.icons8.com/bubbles/40/000000/comments.png" />
+                <p class="h4 d-inline align-middle">Add Comment</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="https://img.icons8.com/bubbles/40/000000/long-arrow-left.png" /></span>
+                </button>
+            </div>
+            <div id="investSectionId">
+
+            </div>
         </div>
     </div>
 </div>
@@ -121,4 +142,17 @@
     $(function () {
         $('#activeTrick').click();
     });
+
+    function investigationtAjaxRequest(reportId) {
+        $.ajax({
+            url: window.location.origin + "/Investigate/AssignInvestigationRedirect?reportId=" + reportId,
+            type: "GET",
+
+            complete: function (result) {
+                console.log(result.responseText);
+                $("#investSectionId").html(result.responseText);
+
+            }
+        });
+    };
 </script>

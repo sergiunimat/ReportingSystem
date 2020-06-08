@@ -51,16 +51,10 @@ namespace ReportSystem.Services
 
         public async Task EditReport(Report report)
         {
-            try
-            {
+           
                 _ctx.Reports.Update(report);
                 await _ctx.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            
 
         }
 

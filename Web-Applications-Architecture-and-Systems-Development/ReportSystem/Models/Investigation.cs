@@ -13,5 +13,9 @@ namespace ReportSystem.Models
         [ForeignKey("ReportId")]
         public Report Report { get; set; }
 
+        public string InvestigatorId { get; set; }
+        public int ReportId { get; set; }
+        public string InvestigationDescription { get; set; }
+
     }
 }
