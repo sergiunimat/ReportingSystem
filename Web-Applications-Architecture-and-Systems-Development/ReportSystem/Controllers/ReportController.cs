@@ -58,6 +58,7 @@ namespace ReportSystem.Controllers
             foreach (var report in listOfOwnReports)
             {
                 var statusName = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName;
+                var replikes = _likeService.GetAlLikesForReport(report.ReportId).Count;
                 var r = new ReportViewModel()
                 {
                     ReportId = report.ReportId,
@@ -70,7 +71,8 @@ namespace ReportSystem.Controllers
                     HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
                     ReportRegisterTime = report.ReportRegisterTime,
                     ReportCommentCount = _commentService.CountCommentsByReportId(report.ReportId),
-                    ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName
+                    ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
+                    ReportLikes = replikes
                 };
                 listDto.Add(r);
 
