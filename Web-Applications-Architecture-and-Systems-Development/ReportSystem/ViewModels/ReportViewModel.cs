@@ -31,9 +31,13 @@ namespace ReportSystem.ViewModels
         public DateTime ReportRegisterTime { get; set; }
         public int ReportCommentCount { get; set; }
         public string ReporterName { get; set; }
+        public string ReporterId { get; set; }
+        public string CurrentUserId { get; set; }
         public int ReportStatusId { get; set; }
         public string ReportStausText { get; set; }
         public int ReportLikes { get; set; }
+        
+        
         //public ApplicationUser ReportReporter { get; set; }
         //public ApplicationUser ReportInvestigator { get; set; }
         //public Investigation Investigation { get; set; }

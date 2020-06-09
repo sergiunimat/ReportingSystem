@@ -44,9 +44,44 @@ namespace ReportSystem.Controllers
             _likeService = likeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var listofReports = _reportService.GetAllReports();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            string currentUserId;
+            currentUserId = user == null ? "" : user.Id;
+            if (listofReports.Count != 0)
+            {
+                var listDto = new List<ReportViewModel>();
+                foreach (var report in listofReports)
+                {
+                    var reportLikes = _likeService.GetAlLikesForReport(report.ReportId).Count;
+                    var statusName = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName;
+                    var r = new ReportViewModel()
+                    {
+                        ReportId = report.ReportId,
+                        ReportDescription = report.ReportDescription,
+                        ReportTitle = report.ReportTitle,
+                        PicturePath = report.ReportPicturePath,
+                        ReportLatitude = report.ReportLatitude,
+                        ReportLongitude = report.ReportLongitude,
+                        ReportStausText = statusName,
+                        HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
+                        ReportRegisterTime = report.ReportRegisterTime,
+                        ReportCommentCount = _commentService.CountCommentsByReportId(report.ReportId),
+                        ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
+                        ReportLikes = reportLikes,
+                        CurrentUserId = currentUserId,
+                        ReporterId = report.ReportReporterId
+                    };
+                    listDto.Add(r);
+
+                }
+                return View(listDto);
+            }
+
+
+            return NotFound();
         }
 
         [HttpGet]
@@ -422,7 +457,7 @@ namespace ReportSystem.Controllers
         public async Task<IActionResult> DeleteReport(int reportId)
         {
             await _reportService.DeleteReportId(reportId);
-            return RedirectToAction("OwnReports");
+            return RedirectToAction("Index");
         }
 
         [Authorize]

@@ -16,10 +16,12 @@
     @foreach (var r in Model)
     {
         var picturePath = "Images/" + r.PicturePath;
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation bg-white m-0 p-4 mb-5">
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
             <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
                 <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
-                <p class="h3">@r.ReportTitle</p>
+                <p class="h3 d-inline">@r.ReportTitle</p>
+                <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/hand-with-pen.png" /></a>
+                <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/delete-sign.png" /></a>
                 <p class="h6">@r.HazardTitle</p>
                 <p class="h6">@r.ReporterName</p>
                 <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
@@ -28,14 +30,6 @@
                 <p class="d-inline pl-5"><img src="https://img.icons8.com/bubbles/40/000000/speech-bubble-with-dots.png" /> @r.ReportCommentCount</p>
                 <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
             </a>
-            <div class="w-100 row">
-                <div class="col-6">
-                    <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@r.ReportId" class="btn btn-warning btn-block">Delete</a>
-                </div>
-                <div class="col-6 mr-0 pr-0">
-                    <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@r.ReportId" class="btn btn-success btn-block">Edit</a>
-                </div>
-            </div>
         </div>
 
     }

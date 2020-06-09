@@ -47,9 +47,12 @@ namespace ReportSystem.Controllers
         }
 
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var listofReports = _reportService.GetAllReports();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            string currentUserId;
+            currentUserId = user == null ? "" : user.Id;
             if (listofReports.Count!=0)
             {
                 var listDto = new List<ReportViewModel>();
@@ -70,7 +73,10 @@ namespace ReportSystem.Controllers
                         ReportRegisterTime = report.ReportRegisterTime,
                         ReportCommentCount = _commentService.CountCommentsByReportId(report.ReportId),
                         ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
-                        ReportLikes = reportLikes
+                        ReportLikes = reportLikes,
+                        CurrentUserId = currentUserId,
+                        ReporterId = report.ReportReporterId
+                        
                     };
                     listDto.Add(r);
 
