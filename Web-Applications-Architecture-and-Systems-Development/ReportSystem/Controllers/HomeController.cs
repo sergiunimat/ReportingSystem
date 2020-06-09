@@ -102,6 +102,7 @@ namespace ReportSystem.Controllers
 
                     var i = new HomeInvestigationViewModel()
                     {
+                        
                         ReportId = investigation.ReportId,
                         ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
                         ReportTitle = report.ReportTitle,

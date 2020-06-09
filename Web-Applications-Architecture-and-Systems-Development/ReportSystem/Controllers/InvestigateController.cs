@@ -101,6 +101,12 @@ namespace ReportSystem.Controllers
             return View(Dto);
         }
 
+        public async Task<IActionResult> EditInvestigationRedirect(int invId)
+        {
+            return ViewComponent("EditInvestigation", new {investigationId = invId});
+
+        }
+
         public async Task<IActionResult> AssignInvestigationRedirect(int reportId)
         {
             return ViewComponent("AssignInvestigation", new { reportId = reportId });
@@ -143,10 +149,29 @@ namespace ReportSystem.Controllers
             
             return RedirectToAction("Index");
         }
-
-        public IActionResult EditInvestigation()
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditInvestigation(InvestigationViewModel model)
         {
-
+            
+            if (ModelState.IsValid)
+            {
+                var newInvestigation = new Investigation()
+                {
+                    InvestigationId = model.InvestigationId,
+                    ReportId = model.ReportId,
+                    InvestigationDescription = model.InvestigationDescription,
+                    InvestigatorId = model.InvestigatorId,
+                    
+                };
+                _investigationService.UpdateInvestigation(newInvestigation);
+                var alterRep = _reportService.GetReportById(model.ReportId);
+                alterRep.ReportStatus = model.InvestigationStatus;
+                //alterRep.ReportInvestigatorId = model.InvestigatorId;
+                await _reportService.EditReport(alterRep);
+                return RedirectToAction("Index");
+            }
+            
             return RedirectToAction("Index");
         }
     }

@@ -47,5 +47,7 @@ namespace ReportSystem.Services
             _ctx.Update(investigation);
             _ctx.SaveChanges();
         }
+
+        
     }
 }

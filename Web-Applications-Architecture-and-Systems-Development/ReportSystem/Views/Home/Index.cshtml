@@ -45,40 +45,58 @@
     </div>
 
     @* second line - Reports*@
-<div class="col-12 ">
-    <p class="h3">Reports</p>
-    <div class="row shadow-lg" style="max-height: 465px; overflow-y: auto">
-        @if (Model.ReportViewModels.Count == 0)
-        {
-            <p class="text-center h5 mx-auto">There are no reports available.</p>
-        }
-        else
-        {
-
-
-            foreach (var r in Model.ReportViewModels)
+    <div class="col-12 ">
+        <p class="h3">Reports</p>
+        <div class="row shadow-lg" style="max-height: 465px; overflow-y: auto">
+            @if (Model.ReportViewModels.Count == 0)
             {
-                var picturePath = "Images/" + r.PicturePath;
-                if (User.Identity.IsAuthenticated)
+                <p class="text-center h5 mx-auto">There are no reports available.</p>
+            }
+            else
+            {
+
+
+                foreach (var r in Model.ReportViewModels)
                 {
-                    //if current user is the same as report user
-                    if (r.ReporterId == r.CurrentUserId)
+                    var picturePath = "Images/" + r.PicturePath;
+                    if (User.Identity.IsAuthenticated)
                     {
-                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
-                            <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
-                                <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
-                                <p class="h3 d-inline">@r.ReportTitle</p>
-                                <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/hand-with-pen.png" /></a>
-                                <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/delete-sign.png" /></a>
-                                <p class="h6">@r.HazardTitle</p>
-                                <p class="h6">@r.ReporterName</p>
-                                <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
-                                <hr />
-                                <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
-                                <p class="d-inline pl-5"><img src="https://img.icons8.com/bubbles/40/000000/speech-bubble-with-dots.png" /> @r.ReportCommentCount</p>
-                                <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
-                            </a>
-                        </div>
+                        //if current user is the same as report user
+                        if (r.ReporterId == r.CurrentUserId)
+                        {
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
+                                <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
+                                    <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
+                                    <p class="h3 d-inline">@r.ReportTitle</p>
+                                    <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/hand-with-pen.png" /></a>
+                                    <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/delete-sign.png" /></a>
+                                    <p class="h6">@r.HazardTitle</p>
+                                    <p class="h6">@r.ReporterName</p>
+                                    <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
+                                    <hr />
+                                    <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
+                                    <p class="d-inline pl-5"><img src="https://img.icons8.com/bubbles/40/000000/speech-bubble-with-dots.png" /> @r.ReportCommentCount</p>
+                                    <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
+                                <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
+                                    <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
+                                    <p class="h3">@r.ReportTitle</p>
+                                    <p class="h6">@r.HazardTitle</p>
+                                    <p class="h6">@r.ReporterName</p>
+                                    <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
+                                    <hr />
+                                    <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
+                                    <p class="d-inline pl-5"><img src="https://img.icons8.com/bubbles/40/000000/speech-bubble-with-dots.png" /> @r.ReportCommentCount</p>
+                                    <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
+                                </a>
+                            </div>
+                        }
+
                     }
                     else
                     {
@@ -98,84 +116,108 @@
                     }
 
                 }
-                else
-                {
-                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
-                        <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
-                            <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
-                            <p class="h3">@r.ReportTitle</p>
-                            <p class="h6">@r.HazardTitle</p>
-                            <p class="h6">@r.ReporterName</p>
-                            <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
-                            <hr />
-                            <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
-                            <p class="d-inline pl-5"><img src="https://img.icons8.com/bubbles/40/000000/speech-bubble-with-dots.png" /> @r.ReportCommentCount</p>
-                            <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
-                        </a>
-                    </div>
-                }
-
             }
-        }
+        </div>
     </div>
-</div>
     @* second line - Investigations*@
-<div class="col-12 mt-5">
-    <p class="h3">Investigations</p>
-    <div id="investigationReportsID" class="row shadow-lg" style="max-height: 350px; overflow-y: auto">
-        @if (Model.HomeInvestigationViewModels.Count == 0)
-        {
-            <p class="text-center h5 mx-auto">There are no Investigations available.</p>
-        }
-        else
-        {
-            foreach (var i in Model.HomeInvestigationViewModels)
+    <div class="col-12 mt-5">
+        <p class="h3">Investigations</p>
+        <div id="investigationReportsID" class="row shadow-lg" style="max-height: 350px; overflow-y: auto">
+            @if (Model.HomeInvestigationViewModels.Count == 0)
             {
-                if (User.Identity.IsAuthenticated)
+                <p class="text-center h5 mx-auto">There are no Investigations available.</p>
+            }
+            else
+            {
+                foreach (var i in Model.HomeInvestigationViewModels)
                 {
-                    if (i.InvestigatorId == i.CurrentUserId)
+                    if (User.Identity.IsAuthenticated)
                     {
-                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
-                            @* mock *@
-                            <div class="card">
-                                <div class="card-header text-center">
-                                    <p>
-                                        <a asp-controller="Investigate" asp-action="RemoveInvestigation" asp-route-reportId=" @i.ReportId" asp-route-investigationId="@i.InvestigationId" class="d-inline float-left shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/delete-sign.png" /></a>
-                                        @i.ReportTitle - Investigation
-                                        <a asp-controller="Investigate" asp-action="EditInvestigation" asp-route-reportId="@i.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/hand-with-pen.png" /></a>
-                                    </p>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group row pl-1 pr-1 m-0">
-                                        <label class="col-sm-5 col-form-label">Report Title:</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" readonly class="form-control-plaintext" value="@i.ReportTitle">
+                        if (i.InvestigatorId == i.CurrentUserId)
+                        {
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
+                                @* mock *@
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        <p>
+                                            <a asp-controller="Investigate" asp-action="RemoveInvestigation" asp-route-reportId=" @i.ReportId" asp-route-investigationId="@i.InvestigationId" class="d-inline float-left shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/delete-sign.png" /></a>
+                                            @i.ReportTitle - Investigation
+                                            <a onclick="investigationtAjaxRequest('@i.InvestigationId')" data-toggle="modal" data-target="#exampleModal" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/hand-with-pen.png" /></a>
+                                        </p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group row pl-1 pr-1 m-0">
+                                            <label class="col-sm-5 col-form-label">Report Title:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="@i.ReportTitle">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pl-1 pr-1 m-0">
+                                            <label class="col-sm-5 col-form-label">Description:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="@i.InvestigationDescription">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pl-1 pr-1 m-0">
+                                            <label class="col-sm-5 col-form-label">Reporter:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pl-1 pr-0 m-0">
+                                            <label class="col-sm-5 col-form-label">Investigator:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row pl-1 pr-1 m-0">
-                                        <label class="col-sm-5 col-form-label">Description:</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" readonly class="form-control-plaintext" value="@i.InvestigationDescription">
-                                        </div>
+                                    <div class="card-footer text-muted text-center">
+                                        Status - @i.StatusText
                                     </div>
-                                    <div class="form-group row pl-1 pr-1 m-0">
-                                        <label class="col-sm-5 col-form-label">Reporter:</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row pl-1 pr-0 m-0">
-                                        <label class="col-sm-5 col-form-label">Investigator:</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer text-muted text-center">
-                                    Status - @i.StatusText
                                 </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
+                                @* mock *@
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        <p>@i.ReportTitle - Investigation</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group row pl-1 pr-1 m-0">
+                                            <label class="col-sm-5 col-form-label">Report Title:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="@i.ReportTitle">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pl-1 pr-1 m-0">
+                                            <label class="col-sm-5 col-form-label">Description:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="@i.InvestigationDescription">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pl-1 pr-1 m-0">
+                                            <label class="col-sm-5 col-form-label">Reporter:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pl-1 pr-0 m-0">
+                                            <label class="col-sm-5 col-form-label">Investigator:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-muted text-center">
+                                        Status - @i.StatusText
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                     }
                     else
                     {
@@ -219,52 +261,11 @@
                     }
 
                 }
-                else
-                {
-                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
-                        @* mock *@
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <p>@i.ReportTitle - Investigation</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group row pl-1 pr-1 m-0">
-                                    <label class="col-sm-5 col-form-label">Report Title:</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" readonly class="form-control-plaintext" value="@i.ReportTitle">
-                                    </div>
-                                </div>
-                                <div class="form-group row pl-1 pr-1 m-0">
-                                    <label class="col-sm-5 col-form-label">Description:</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" readonly class="form-control-plaintext" value="@i.InvestigationDescription">
-                                    </div>
-                                </div>
-                                <div class="form-group row pl-1 pr-1 m-0">
-                                    <label class="col-sm-5 col-form-label">Reporter:</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
-                                    </div>
-                                </div>
-                                <div class="form-group row pl-1 pr-0 m-0">
-                                    <label class="col-sm-5 col-form-label">Investigator:</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer text-muted text-center">
-                                Status - @i.StatusText
-                            </div>
-                        </div>
-                    </div>
-                }
-
             }
-        }
-    </div>
+        </div>
     </div>
 </div>
+
 
 @* Hall of Fame modal *@
 
@@ -272,7 +273,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                
+
                 <p class="modal-title align-middle h1" id="exampleModalLabel"><img src="https://img.icons8.com/bubbles/100/000000/prize.png" />Hall of Fame</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -303,71 +304,107 @@
                         </table>
                     </div>
                     @* Best Investigator *@
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
-                    <p class="h5 text-center border border-bottom-0 pt-2">Best Investigator</p>
-                    <table class="table table-hover table-sm">
-                        <thead class=" thead-dark">
-                            <tr>
-                                <th scope="col">Reports Count</th>
-                                <th scope="col">Reporter</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (var r in Model.BestInvestigators.Take(5))
-                        {
-                            <tr>
-                                <th scope="row">@r.InvestigationNumber</th>
-                                <td>@r.InvestigatorName</td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+                        <p class="h5 text-center border border-bottom-0 pt-2">Best Investigator</p>
+                        <table class="table table-hover table-sm">
+                            <thead class=" thead-dark">
+                                <tr>
+                                    <th scope="col">Investigations Count</th>
+                                    <th scope="col">Investigator</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in Model.BestInvestigators.Take(5))
+                                {
+                                    <tr>
+                                        <th scope="row">@r.InvestigationNumber</th>
+                                        <td>@r.InvestigatorName</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                     @* Most liked Report *@
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
-                    <p class="h5 text-center  border border-bottom-0 pt-2">Report With most Likes</p>
-                    <table class="table table-hover table-sm">
-                        <thead class=" thead-dark">
-                            <tr>
-                                <th scope="col">Reports Likes</th>
-                                <th scope="col">Report Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (var r in Model.LikesList.Take(5))
-                        {
-                            <tr>
-                                <th scope="row">@r.ReportLikes</th>
-                                <td>@r.ReportTitle</td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+                        <p class="h5 text-center  border border-bottom-0 pt-2">Report With most Likes</p>
+                        <table class="table table-hover table-sm">
+                            <thead class=" thead-dark">
+                                <tr>
+                                    <th scope="col">Reports Likes</th>
+                                    <th scope="col">Report Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in Model.LikesList.Take(5))
+                                {
+                                    <tr>
+                                        <th scope="row">@r.ReportLikes</th>
+                                        <td>@r.ReportTitle</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                     @* Most commented Report *@
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <p class="h5 text-center border border-bottom-0 pt-2">Report With most Comments</p>
-                    <table class="table table-hover table-sm">
-                        <thead class=" thead-dark">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <p class="h5 text-center border border-bottom-0 pt-2">Report With most Comments</p>
+                        <table class="table table-hover table-sm">
+                            <thead class=" thead-dark">
                             <tr>
                                 <th scope="col">Reports Comments</th>
                                 <th scope="col">Report Name</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (var r in Model.CommentsList.Take(5))
-                        {
-                            <tr>
-                                <th scope="row">@r.ReportComments</th>
-                                <td>@r.ReportTitle</td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                            @foreach (var r in Model.CommentsList.Take(5))
+                            {
+                                <tr>
+                                    <th scope="row">@r.ReportComments</th>
+                                    <td>@r.ReportTitle</td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
+
+@* Modal to assign investigation *@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <p class="h4 d-inline align-middle"><img class="d-inline" src="https://img.icons8.com/bubbles/60/000000/task.png" />Create Investigation</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="https://img.icons8.com/bubbles/40/000000/long-arrow-left.png" /></span>
+                </button>
+            </div>
+            <div id="investSectionId">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+
+    function investigationtAjaxRequest(invId) {
+        $.ajax({
+            url: window.location.origin + "/Investigate/EditInvestigationRedirect?invId=" + invId,
+            type: "GET",
+
+            complete: function (result) {
+                console.log(result.responseText);
+                $("#investSectionId").html(result.responseText);
+
+            }
+        });
+    };
+</script>
