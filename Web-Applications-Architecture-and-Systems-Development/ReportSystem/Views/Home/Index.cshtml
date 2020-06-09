@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </a>
-            <a asp-controller="Report" asp-action="CreateReport" class="col-6 text-decoration-none text-dark pl-0 ">
+            <a href="#investigationReportsID" class="col-6 text-decoration-none text-dark pl-0 ">
                 <div class="card shadow-animation-out text-center h-100 w-100">
                     <div class="card-body">
                         <p class="h5">Investigations</p>
@@ -45,9 +45,18 @@
     </div>
 
     @* second line - Reports*@
-    <div class="col-12 shadow">
-        <div class="row" style="max-height: 460px; overflow-y: auto">
-            @foreach (var r in Model.ReportViewModels)
+<div class="col-12 ">
+    <p class="h3">Reports</p>
+    <div class="row shadow-lg" style="max-height: 465px; overflow-y: auto">
+        @if (Model.ReportViewModels.Count == 0)
+        {
+            <p class="text-center h5 mx-auto">There are no reports available.</p>
+        }
+        else
+        {
+
+
+            foreach (var r in Model.ReportViewModels)
             {
                 var picturePath = "Images/" + r.PicturePath;
                 if (User.Identity.IsAuthenticated)
@@ -107,16 +116,158 @@
                 }
 
             }
-        </div>
+        }
     </div>
+</div>
     @* second line - Investigations*@
-    <div class="col-12 shadow">
+<div class="col-12 mt-5">
+    <p class="h3">Investigations</p>
+    <div id="investigationReportsID" class="row shadow-lg" style="max-height: 350px; overflow-y: auto">
+        @if (Model.HomeInvestigationViewModels.Count == 0)
+        {
+            <p class="text-center h5 mx-auto">There are no Investigations available.</p>
+        }
+        else
+        {
+            foreach (var i in Model.HomeInvestigationViewModels)
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (i.InvestigatorId == i.CurrentUserId)
+                    {
+                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
+                            @* mock *@
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <p>
+                                        <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@i.ReportId" class="d-inline float-left shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/delete-sign.png" /></a>
+                                        @i.ReportTitle - Investigation
+                                        <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@i.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/hand-with-pen.png" /></a>
+                                    </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row pl-1 pr-1 m-0">
+                                        <label class="col-sm-5 col-form-label">Report Title:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" value="@i.ReportTitle">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-1 pr-1 m-0">
+                                        <label class="col-sm-5 col-form-label">Description:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" value="@i.InvestigationDescription">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-1 pr-1 m-0">
+                                        <label class="col-sm-5 col-form-label">Reporter:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-1 pr-0 m-0">
+                                        <label class="col-sm-5 col-form-label">Investigator:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted text-center">
+                                    Status - @i.StatusText
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
+                            @* mock *@
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <p>@i.ReportTitle - Investigation</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row pl-1 pr-1 m-0">
+                                        <label class="col-sm-5 col-form-label">Report Title:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" value="@i.ReportTitle">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-1 pr-1 m-0">
+                                        <label class="col-sm-5 col-form-label">Description:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" value="@i.InvestigationDescription">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-1 pr-1 m-0">
+                                        <label class="col-sm-5 col-form-label">Reporter:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-1 pr-0 m-0">
+                                        <label class="col-sm-5 col-form-label">Investigator:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted text-center">
+                                    Status - @i.StatusText
+                                </div>
+                            </div>
+                        </div>
+                    }
 
+                }
+                else
+                {
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
+                        @* mock *@
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <p>@i.ReportTitle - Investigation</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row pl-1 pr-1 m-0">
+                                    <label class="col-sm-5 col-form-label">Report Title:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" readonly class="form-control-plaintext" value="@i.ReportTitle">
+                                    </div>
+                                </div>
+                                <div class="form-group row pl-1 pr-1 m-0">
+                                    <label class="col-sm-5 col-form-label">Description:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" readonly class="form-control-plaintext" value="@i.InvestigationDescription">
+                                    </div>
+                                </div>
+                                <div class="form-group row pl-1 pr-1 m-0">
+                                    <label class="col-sm-5 col-form-label">Reporter:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
+                                    </div>
+                                </div>
+                                <div class="form-group row pl-1 pr-0 m-0">
+                                    <label class="col-sm-5 col-form-label">Investigator:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted text-center">
+                                Status - @i.StatusText
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+        }
+    </div>
     </div>
 </div>
 
 @* Hall of Fame modal *@
-<!-- Modal -->
+
 <div class="modal fade" id="hallOfFame" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">

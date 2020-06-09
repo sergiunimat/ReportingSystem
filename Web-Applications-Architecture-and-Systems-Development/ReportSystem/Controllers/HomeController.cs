@@ -24,6 +24,7 @@ namespace ReportSystem.Controllers
         private readonly IReportStatus _reportStatus;
         private readonly ILikeService _likeService;
         private readonly IHallOfFameService _fameService;
+        private readonly IInvestigationService _investigationService;
 
 
         public HomeController(
@@ -35,7 +36,8 @@ namespace ReportSystem.Controllers
                                 ICommentService commentService,
                                 IReportStatus reportStatus,
                                 ILikeService likeService,
-                                IHallOfFameService fameService
+                                IHallOfFameService fameService,
+                                IInvestigationService investigationService 
                                 )
         {
             _logger = logger;
@@ -47,6 +49,7 @@ namespace ReportSystem.Controllers
             _reportStatus = reportStatus;
             _likeService = likeService;
             _fameService = fameService;
+            _investigationService = investigationService;
         }
 
         
@@ -58,12 +61,15 @@ namespace ReportSystem.Controllers
             var reportWithMostComments = _fameService.GetReportWithMostComments().OrderByDescending(o=>o.ReportComments);
             var reportWithMostLikes = _fameService.GetReportWithMostLikes().OrderByDescending(o=>o.ReportLikes);
             var listofReports = _reportService.GetAllReports();
+            //listofReports.Clear(); //this line is to mimic if there arent any reports in the database.
+            var listOfInvestigations = _investigationService.GetAllInvestigations();
             var user = await _userManager.GetUserAsync(HttpContext.User);
             string currentUserId;
             currentUserId = user == null ? "" : user.Id;
-            if (listofReports.Count!=0)
-            {
-                var listDto = new List<ReportViewModel>();
+            /*I: if there are*/
+            //if (listofReports.Count!=0 && listOfInvestigations.Count!=0)
+            //{
+                var reportViewModelList = new List<ReportViewModel>();
                 foreach (var report in listofReports)
                 {
                     var reportLikes = _likeService.GetAlLikesForReport(report.ReportId).Count;
@@ -86,21 +92,44 @@ namespace ReportSystem.Controllers
                         ReporterId = report.ReportReporterId
                         
                     };
-                    listDto.Add(r);
-
-
+                    reportViewModelList.Add(r);
                 }
-                var passModel = new HomePageViewModel()
+
+                var homeInvestigationViewModelsList = new List<HomeInvestigationViewModel>();
+                foreach (var investigation in listOfInvestigations)
+                {
+                    var report = _reportService.GetReportById(investigation.ReportId);
+
+                    var i = new HomeInvestigationViewModel()
+                    {
+                        ReportId = investigation.ReportId,
+                        ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
+                        ReportTitle = report.ReportTitle,
+                        ReporterId = report.ReportReporterId,
+                        InvestigatorId = investigation.InvestigatorId,
+                        InvestigatorName = _userManager.FindByIdAsync(investigation.InvestigatorId).Result.UserName,
+                        CurrentUserId = currentUserId,
+                        InvestigationDescription = investigation.InvestigationDescription,
+                        InvestigationId = investigation.InvestigationId,
+                        StatusId = report.ReportStatus,
+                        StatusText = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName
+                    };
+                    homeInvestigationViewModelsList.Add(i);
+                }
+
+
+            var passModel = new HomePageViewModel()
                 {
                     BestInvestigators =  bestInvestigators.ToList(),
                     BestReporterViewModels = bestReporters.ToList(),
                     CommentsList = reportWithMostComments.ToList(),
                     LikesList = reportWithMostLikes.ToList(),
-                    ReportViewModels = listDto
+                    ReportViewModels = reportViewModelList,
+                    HomeInvestigationViewModels = homeInvestigationViewModelsList
 
-                };
+            };
                 return View(passModel);
-            }
+            //}
 
 
             return NotFound();

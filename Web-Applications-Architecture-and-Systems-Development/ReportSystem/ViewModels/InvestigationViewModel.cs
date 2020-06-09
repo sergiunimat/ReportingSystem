@@ -12,6 +12,7 @@ namespace ReportSystem.ViewModels
         public int ReportId { get; set; }
         public string ReportTitle { get; set; }
         public string InvestigatorId { get; set; }
+        public string InvestigationTitle { get; set; }
         public int InvestigationStatus { get; set; }
         public string InvestigatorName { get; set; }
         public string InvestigatorEmail { get; set; }
