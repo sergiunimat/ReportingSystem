@@ -140,9 +140,9 @@
                             <div class="card">
                                 <div class="card-header text-center">
                                     <p>
-                                        <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@i.ReportId" class="d-inline float-left shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/delete-sign.png" /></a>
+                                        <a asp-controller="Investigate" asp-action="RemoveInvestigation" asp-route-reportId=" @i.ReportId" asp-route-investigationId="@i.InvestigationId" class="d-inline float-left shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/delete-sign.png" /></a>
                                         @i.ReportTitle - Investigation
-                                        <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@i.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/hand-with-pen.png" /></a>
+                                        <a asp-controller="Investigate" asp-action="EditInvestigation" asp-route-reportId="@i.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/40/000000/hand-with-pen.png" /></a>
                                     </p>
                                 </div>
                                 <div class="card-body">
