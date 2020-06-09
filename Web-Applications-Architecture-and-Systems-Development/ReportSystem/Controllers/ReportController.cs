@@ -103,6 +103,7 @@ namespace ReportSystem.Controllers
                     ReportLatitude = report.ReportLatitude,
                     ReportLongitude = report.ReportLongitude,
                     ReportStausText = statusName,
+                    ReporterId = user.Id,
                     HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
                     ReportRegisterTime = report.ReportRegisterTime,
                     ReportCommentCount = _commentService.CountCommentsByReportId(report.ReportId),
