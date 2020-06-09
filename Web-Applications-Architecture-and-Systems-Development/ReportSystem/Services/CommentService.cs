@@ -44,5 +44,10 @@ namespace ReportSystem.Services
         {
             return _ctx.Comments.Count(c => c.ReportId == reportId);
         }
+
+        public List<Comment> GetAllCommentsByReporterId(string userId)
+        {
+            return _ctx.Comments.Where(c => c.UserId == userId).ToList();
+        }
     }
 }

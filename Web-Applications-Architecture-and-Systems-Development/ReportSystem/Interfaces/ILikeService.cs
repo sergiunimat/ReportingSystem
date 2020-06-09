@@ -12,5 +12,6 @@ namespace ReportSystem.Interfaces
         void UpdateLike(Like like);
         Like GetLikeBasedOnReportIdAndUserId(int reportId, string userId);
         List<Like> GetAlLikesForReport(int reportId);
+        List<Like> GetAllLikesByReporterId(string userId);
     }
 }

@@ -10,6 +10,7 @@ namespace ReportSystem.ViewModels
     public class EditUserViewModel
     {
         public string UserName { get; set; }
+        public string UserAddress { get; set; }
         public string UserEmail { get; set; }
         public string UserId { get; set; }
         public bool InvestigatorRole { get; set; }

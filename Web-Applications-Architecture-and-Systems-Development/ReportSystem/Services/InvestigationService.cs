@@ -35,6 +35,11 @@ namespace ReportSystem.Services
             return _ctx.Investigations.FirstOrDefault(i => i.InvestigationId == invId);
         }
 
+        public List<Investigation> GetInvestigationsByReporterId(string invId)
+        {
+             return _ctx.Investigations.Where(i=>i.InvestigatorId== invId).ToList();
+        }
+
         public void RemoveInvestigation(int investigationId)
         {
             var tempInv = GetInvestigationById(investigationId);

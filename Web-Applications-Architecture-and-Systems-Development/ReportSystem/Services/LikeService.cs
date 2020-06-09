@@ -38,5 +38,10 @@ namespace ReportSystem.Services
         {
             return _ctx.Likes.Where(l => l.ReportId==reportId && l.Liked==true).ToList();
         }
+
+        public List<Like> GetAllLikesByReporterId(string userId)
+        {
+            return _ctx.Likes.Where(l => l.UserId == userId).ToList();
+        }
     }
 }

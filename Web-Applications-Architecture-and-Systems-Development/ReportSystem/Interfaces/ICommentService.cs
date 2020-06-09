@@ -11,5 +11,6 @@ namespace ReportSystem.Interfaces
         public void CreateComment(Guid commentId, int reportId, string userId, string commentText);
         List<Comment> GetAllCommentsByReportId(int reportId);
         int CountCommentsByReportId(int reportId);
+        List<Comment> GetAllCommentsByReporterId(string userId);
     }
 }

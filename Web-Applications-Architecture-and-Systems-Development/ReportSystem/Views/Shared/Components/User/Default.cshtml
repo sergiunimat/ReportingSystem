@@ -1,0 +1,218 @@
+﻿@model ReportSystem.ViewModels.UserViewModel
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (Model.UserId==Model.CurrentUserId)
+    {
+    <form asp-controller="Account" asp-action="EditUser">
+        <div class="col-12 mt-3 w-100">
+
+            <div class="form-group row">
+                <label asp-for="UserName" class="col-sm-6 col-form-label">User Name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" asp-for="UserName" value="@Model.UserName" required="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="UserEmail" class="col-sm-6 col-form-label">User Email</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" asp-for="UserEmail" value="@Model.UserEmail" required="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="UserAddress" class="col-sm-6 col-form-label">User Address:</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" asp-for="UserAddress" value="@Model.UserAddress" required="">
+                </div>
+            </div>
+
+
+            @* non editable inputs *@
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group row">
+                        <label asp-for="UserReportCount" class="col-sm-12 col-form-label h5">Total Reports</label>
+                        <div class="col-sm-12">
+                            <input type="text" readonly class="form-control-plaintext" asp-for="UserReportCount" value="@Model.UserReportCount">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-6">
+                    <div class="form-group row">
+                        <label asp-for="UserInvestigationCount" class="col-sm-12 col-form-label h5">Total Investigations:</label>
+                        <div class="col-sm-12">
+                            <input type="text" readonly class="form-control-plaintext" asp-for="UserInvestigationCount" value="@Model.UserInvestigationCount">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group row">
+                        <label asp-for="UserCommentCount" class="col-sm-12 col-form-label h5">Total Comments:</label>
+                        <div class="col-sm-12">
+                            <input type="text" readonly class="form-control-plaintext" asp-for="UserCommentCount" value="@Model.UserCommentCount">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group row">
+                        <label asp-for="UserLikeCount" class="col-sm-12 col-form-label h5">Total Likes:</label>
+                        <div class="col-sm-12">
+                            <input type="text" readonly class="form-control-plaintext" asp-for="UserLikeCount" value="@Model.UserLikeCount">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input name="UserId" type="text" value="@Model.UserId" hidden="">
+            <div class="col text-center mb-3">
+                <button type="submit" class="btn btn-success mx-auto text-center pl-5 pr-5">Edit</button>
+            </div>
+            
+        </div>
+        
+    </form>
+    }
+    else
+    {
+    <div class="col-12 mt-3 w-100">
+
+        <div class="form-group row">
+            <label asp-for="UserName" class="col-sm-6 col-form-label">User Name</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="UserName" value="@Model.UserName">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="UserEmail" class="col-sm-6 col-form-label">User Email</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="UserEmail" value="@Model.UserEmail">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="UserAddress" class="col-sm-6 col-form-label">User Address</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="UserAddress" value="@Model.UserAddress">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row">
+                    <label asp-for="UserReportCount" class="col-sm-12 col-form-label h5">Total Reports</label>
+                    <div class="col-sm-12">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="UserReportCount" value="@Model.UserReportCount">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-6">
+                <div class="form-group row">
+                    <label asp-for="UserInvestigationCount" class="col-sm-12 col-form-label h5">Total Investigations:</label>
+                    <div class="col-sm-12">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="UserInvestigationCount" value="@Model.UserInvestigationCount">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group row">
+                    <label asp-for="UserCommentCount" class="col-sm-12 col-form-label h5">Total Comments:</label>
+                    <div class="col-sm-12">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="UserCommentCount" value="@Model.UserCommentCount">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group row">
+                    <label asp-for="UserLikeCount" class="col-sm-12 col-form-label h5">Total Likes:</label>
+                    <div class="col-sm-12">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="UserLikeCount" value="@Model.UserLikeCount">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    }
+
+}
+else
+{
+    <div class="col-12 mt-3 w-100">
+
+        <div class="form-group row">
+            <label asp-for="UserName" class="col-sm-6 col-form-label">User Name</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="UserName" value="@Model.UserName">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="UserEmail" class="col-sm-6 col-form-label">User Email</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="UserEmail" value="@Model.UserEmail">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="UserAddress" class="col-sm-6 col-form-label">User Address</label>
+            <div class="col-sm-6">
+                <input type="text" readonly class="form-control-plaintext" asp-for="UserAddress" value="@Model.UserAddress">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row">
+                    <label asp-for="UserReportCount" class="col-sm-12 col-form-label h5">Total Reports</label>
+                    <div class="col-sm-12">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="UserReportCount" value="@Model.UserReportCount">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-6">
+                <div class="form-group row">
+                    <label asp-for="UserInvestigationCount" class="col-sm-12 col-form-label h5">Total Investigations:</label>
+                    <div class="col-sm-12">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="UserInvestigationCount" value="@Model.UserInvestigationCount">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group row">
+                    <label asp-for="UserCommentCount" class="col-sm-12 col-form-label h5">Total Comments:</label>
+                    <div class="col-sm-12">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="UserCommentCount" value="@Model.UserCommentCount">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group row">
+                    <label asp-for="UserLikeCount" class="col-sm-12 col-form-label h5">Total Likes:</label>
+                    <div class="col-sm-12">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="UserLikeCount" value="@Model.UserLikeCount">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}

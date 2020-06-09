@@ -13,5 +13,6 @@ namespace ReportSystem.Interfaces
         public void RemoveInvestigation(int investigationId);
         void UpdateInvestigation(Investigation investigation);
         Investigation GetInvestigationById(int invId);
+        List<Investigation> GetInvestigationsByReporterId(string invId);
     }
 }

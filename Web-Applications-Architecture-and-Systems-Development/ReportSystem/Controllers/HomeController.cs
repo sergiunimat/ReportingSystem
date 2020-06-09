@@ -132,10 +132,8 @@ namespace ReportSystem.Controllers
                 return View(passModel);
             //}
 
-
-            return NotFound();
-            
         }
+        /*YOU DO NOT USE THIS FUNCTION APARENTLY*/
         [Authorize]
         public IActionResult LogedInIndex(string userId)
         {
@@ -145,10 +143,7 @@ namespace ReportSystem.Controllers
                 var listDto = new List<ReportViewModel>();
                 foreach (var report in listofReports)
                 {
-
-                     var reportLikes= _likeService.GetAlLikesForReport(report.ReportId).Count;
-                     
-
+                    var reportLikes= _likeService.GetAlLikesForReport(report.ReportId).Count;
                     
                     var r = new ReportViewModel()
                     {
@@ -172,6 +167,7 @@ namespace ReportSystem.Controllers
 
             return NotFound();
         }
+        
         [Authorize]
         public IActionResult Manager()
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ReportSystem.Interfaces;
 using ReportSystem.Models;
 using ReportSystem.ViewModels;
 
@@ -15,10 +16,15 @@ namespace ReportSystem.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly IUserService _userService;
+        private readonly IAdminService _adminService;
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IUserService userService,IAdminService adminService )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
+            _adminService = adminService;
         }
         /*I: this controller deals with different account facilities.*/
         [HttpGet]
@@ -117,6 +123,29 @@ namespace ReportSystem.Controllers
         public IActionResult PasswordRecovery()
         {
             throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(UserViewModel user)
+        {
+            var editUser= new ApplicationUser()
+            {
+                Id = user.UserId,
+                UserName = user.UserName,
+                Email = user.UserEmail,
+                UserAddress= user.UserAddress
+            };
+            //await _userManager.UpdateAsync(editUser);
+           await _userService.EditUser(editUser);
+            
+            return RedirectToAction("Index", "Home");
+        }
+
+        /*I: this Action result is called from all AJAX request when editing/vieweing a user*/
+        public async Task<IActionResult> EditUserRedirect(string userId)
+        {
+            return ViewComponent("User", new { userId = userId });
+
         }
     }
 }

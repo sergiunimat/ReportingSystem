@@ -71,7 +71,7 @@
                                     <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/hand-with-pen.png" /></a>
                                     <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/delete-sign.png" /></a>
                                     <p class="h6">@r.HazardTitle</p>
-                                    <p class="h6">@r.ReporterName</p>
+                                    <a href="#" onclick="editUsertAjaxRequest('@r.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary">@r.ReporterName</a>
                                     <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
                                     <hr />
                                     <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
@@ -87,7 +87,7 @@
                                     <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
                                     <p class="h3">@r.ReportTitle</p>
                                     <p class="h6">@r.HazardTitle</p>
-                                    <p class="h6">@r.ReporterName</p>
+                                    <a href="#" onclick="editUsertAjaxRequest('@r.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary">@r.ReporterName</a>
                                     <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
                                     <hr />
                                     <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
@@ -105,7 +105,7 @@
                                 <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
                                 <p class="h3">@r.ReportTitle</p>
                                 <p class="h6">@r.HazardTitle</p>
-                                <p class="h6">@r.ReporterName</p>
+                                <a href="#" onclick="editUsertAjaxRequest('@r.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary">@r.ReporterName</a>
                                 <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
                                 <hr />
                                 <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
@@ -161,13 +161,13 @@
                                         <div class="form-group row pl-1 pr-1 m-0">
                                             <label class="col-sm-5 col-form-label">Reporter:</label>
                                             <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
+                                                <a href="#" onclick="editUsertAjaxRequest('@i.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary align-bottom">@i.ReporterName</a>
                                             </div>
                                         </div>
                                         <div class="form-group row pl-1 pr-0 m-0">
                                             <label class="col-sm-5 col-form-label">Investigator:</label>
                                             <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
+                                                <a href="#" onclick="editUsertAjaxRequest('@i.InvestigatorId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary align-bottom">@i.InvestigatorName</a>
                                             </div>
                                         </div>
                                     </div>
@@ -200,14 +200,14 @@
                                         </div>
                                         <div class="form-group row pl-1 pr-1 m-0">
                                             <label class="col-sm-5 col-form-label">Reporter:</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
+                                            <div class="col-sm-7 ">
+                                                <a href="#" onclick="editUsertAjaxRequest('@i.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary align-bottom">@i.ReporterName</a>
                                             </div>
                                         </div>
                                         <div class="form-group row pl-1 pr-0 m-0">
                                             <label class="col-sm-5 col-form-label">Investigator:</label>
                                             <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
+                                                <a href="#" onclick="editUsertAjaxRequest('@i.InvestigatorId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary align-bottom">@i.InvestigatorName</a>
                                             </div>
                                         </div>
                                     </div>
@@ -243,13 +243,13 @@
                                     <div class="form-group row pl-1 pr-1 m-0">
                                         <label class="col-sm-5 col-form-label">Reporter:</label>
                                         <div class="col-sm-7">
-                                            <input type="text" readonly class="form-control-plaintext" value="@i.ReporterName">
+                                            <a href="#" onclick="editUsertAjaxRequest('@i.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary align-bottom">@i.ReporterName</a>
                                         </div>
                                     </div>
                                     <div class="form-group row pl-1 pr-0 m-0">
                                         <label class="col-sm-5 col-form-label">Investigator:</label>
                                         <div class="col-sm-7">
-                                            <input type="text" readonly class="form-control-plaintext" value="@i.InvestigatorName">
+                                            <a href="#" onclick="editUsertAjaxRequest('@i.InvestigatorId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary align-bottom">@i.InvestigatorName</a>
                                         </div>
                                     </div>
                                 </div>
@@ -350,19 +350,19 @@
                         <p class="h5 text-center border border-bottom-0 pt-2">Report With most Comments</p>
                         <table class="table table-hover table-sm">
                             <thead class=" thead-dark">
-                            <tr>
-                                <th scope="col">Reports Comments</th>
-                                <th scope="col">Report Name</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">Reports Comments</th>
+                                    <th scope="col">Report Name</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach (var r in Model.CommentsList.Take(5))
-                            {
-                                <tr>
-                                    <th scope="row">@r.ReportComments</th>
-                                    <td>@r.ReportTitle</td>
-                                </tr>
-                            }
+                                @foreach (var r in Model.CommentsList.Take(5))
+                                {
+                                    <tr>
+                                        <th scope="row">@r.ReportComments</th>
+                                        <td>@r.ReportTitle</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -392,8 +392,26 @@
     </div>
 </div>
 
+<!-- User - Modal -->
+<div class="modal fade" id="exampleModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <p class="h4 d-inline align-middle"><img class="d-inline" src="https://img.icons8.com/bubbles/60/000000/find-user-male.png" />User Information</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="https://img.icons8.com/bubbles/40/000000/long-arrow-left.png" /></span>
+                </button>
+            </div>
+            <div id="editUserSectionId">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    
+
 
     function investigationtAjaxRequest(invId) {
         $.ajax({
@@ -403,6 +421,20 @@
             complete: function (result) {
                 console.log(result.responseText);
                 $("#investSectionId").html(result.responseText);
+
+            }
+        });
+    };
+
+
+    function editUsertAjaxRequest(userId) {
+        $.ajax({
+            url: window.location.origin + "/Account/EditUserRedirect?userId=" + userId,
+            type: "GET",
+
+            complete: function (result) {
+                console.log(result.responseText);
+                $("#editUserSectionId").html(result.responseText);
 
             }
         });

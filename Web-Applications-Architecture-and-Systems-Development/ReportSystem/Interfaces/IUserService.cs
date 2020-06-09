@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ReportSystem.Models;
 
 namespace ReportSystem.Interfaces
 {
-    interface IUserService
+    public interface IUserService
     {
         Task CreatePowerUserIfDoesNotExist();
+        Task EditUser(ApplicationUser model);
     }
 }

@@ -38,7 +38,7 @@ namespace ReportSystem.Controllers
         public IActionResult EditUser(string userId)
         {
             var userList = _userManager.Users;
-            return ViewComponent("EditUser",new{userId=userId});
+            return ViewComponent("EditUser", new{userId=userId});
         }
         [HttpPost]
         public async Task<IActionResult> EditUserAsync(EditUserViewModel formDTO)
