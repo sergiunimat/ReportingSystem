@@ -4,31 +4,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="row shadow">
-        @if (Model.Count==0)
+<div class="row shadow">
+    @if (Model.Count == 0)
+    {
+        <div class="col-12">
+            <p class="h3"> There are no Reports available.</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var r in Model)
         {
-            <div class="col-12">
-                <p class="h3"> There are no Reports available.</p>
-            </div>
-        }
-        else
-        {
-            @foreach (var r in Model)
+            var picturePath = "Images/" + r.PicturePath;
+            if (User.Identity.IsAuthenticated)
             {
-                var picturePath = "Images/" + r.PicturePath;
-                if (User.Identity.IsAuthenticated)
+                //if current user is the same as report user
+                if (r.ReporterId == r.CurrentUserId)
                 {
-                    //if current user is the same as report user
-                    if (r.ReporterId==r.CurrentUserId)
-                    {
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
                         <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
                             <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
                             <p class="h3 d-inline">@r.ReportTitle</p>
-                            <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border" > <img src="https://img.icons8.com/bubbles/60/000000/hand-with-pen.png" /></a>
-                            <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border" > <img src="https://img.icons8.com/bubbles/60/000000/delete-sign.png" /></a>
+                            <a asp-controller="Report" asp-action="EditReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/hand-with-pen.png" /></a>
+                            <a asp-controller="Report" asp-action="DeleteReport" asp-route-reportId="@r.ReportId" class="d-inline float-right shadow-animation-out rounded-circle border"> <img src="https://img.icons8.com/bubbles/60/000000/delete-sign.png" /></a>
                             <p class="h6">@r.HazardTitle</p>
-                            <p class="h6">@r.ReporterName</p>
+                            @*<p class="h6">@r.ReporterName</p>*@
+                            <a href="#" onclick="editUsertAjaxRequest('@r.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary">@r.ReporterName</a>
                             <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
                             <hr />
                             <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
@@ -36,33 +37,35 @@
                             <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
                         </a>
                     </div>
-                    }
-                    else
-                    {
-                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
-                    <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
-                        <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
-                        <p class="h3">@r.ReportTitle</p>
-                        <p class="h6">@r.HazardTitle</p>
-                        <p class="h6">@r.ReporterName</p>
-                        <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
-                        <hr />
-                        <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
-                        <p class="d-inline pl-5"><img src="https://img.icons8.com/bubbles/40/000000/speech-bubble-with-dots.png" /> @r.ReportCommentCount</p>
-                        <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
-                    </a>
-                    </div>
-                    }
-                   
                 }
                 else
                 {
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
+                        <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
+                            <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
+                            <p class="h3">@r.ReportTitle</p>
+                            <p class="h6">@r.HazardTitle</p>
+                            @*<p class="h6">@r.ReporterName</p>*@
+                            <a href="#" onclick="editUsertAjaxRequest('@r.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary">@r.ReporterName</a>
+                            <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
+                            <hr />
+                            <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
+                            <p class="d-inline pl-5"><img src="https://img.icons8.com/bubbles/40/000000/speech-bubble-with-dots.png" /> @r.ReportCommentCount</p>
+                            <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
+                        </a>
+                    </div>
+                }
+
+            }
+            else
+            {
                 <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 shadow-animation-out bg-white m-0 p-1 mb-5 border">
                     <a class="font-weight-normal text-decoration-none text-dark" asp-controller="Report" asp-action="ShowReport" asp-route-reportId="@r.ReportId">
                         <img class="card-img-top w-100" src="~/@picturePath" alt="Card image cap" style="height: 230px">
                         <p class="h3">@r.ReportTitle</p>
                         <p class="h6">@r.HazardTitle</p>
-                        <p class="h6">@r.ReporterName</p>
+                        @*<p class="h6">@r.ReporterName</p>*@
+                        <a href="#" onclick="editUsertAjaxRequest('@r.ReporterId')" data-toggle="modal" data-target="#exampleModalUser" class="h6 text-primary">@r.ReporterName</a>
                         <p class=""><img src="https://img.icons8.com/bubbles/40/000000/checked.png" />@r.ReportStausText</p>
                         <hr />
                         <p class="d-inline float-left"><img src="https://img.icons8.com/bubbles/40/000000/today.png" />@r.ReportRegisterTime.ToShortDateString()</p>
@@ -70,8 +73,41 @@
                         <p class="d-inline pr-3 float-right"><img src="https://img.icons8.com/bubbles/40/000000/good-quality.png" />@r.ReportLikes</p>
                     </a>
                 </div>
-                }
+            }
+
+        }
+    }
+</div>
+
+<!-- User - Modal -->
+<div class="modal fade" id="exampleModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <p class="h4 d-inline align-middle"><img class="d-inline" src="https://img.icons8.com/bubbles/60/000000/find-user-male.png" />User Information</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="https://img.icons8.com/bubbles/40/000000/long-arrow-left.png" /></span>
+                </button>
+            </div>
+            <div id="editUserSectionId">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function editUsertAjaxRequest(userId) {
+        $.ajax({
+            url: window.location.origin + "/Account/EditUserRedirect?userId=" + userId,
+            type: "GET",
+
+            complete: function (result) {
+                console.log(result.responseText);
+                $("#editUserSectionId").html(result.responseText);
 
             }
-        }
-    </div>
+        });
+    };
+</script>
