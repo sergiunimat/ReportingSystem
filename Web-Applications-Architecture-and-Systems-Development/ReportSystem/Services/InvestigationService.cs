@@ -22,5 +22,10 @@ namespace ReportSystem.Services
             _ctx.Investigations.Add(investigation);
             _ctx.SaveChanges();
         }
+
+        public List<Investigation> GetAllInvestigations()
+        {
+            return _ctx.Investigations.ToList();
+        }
     }
 }

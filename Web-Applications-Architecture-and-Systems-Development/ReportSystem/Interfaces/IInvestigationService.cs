@@ -9,5 +9,6 @@ namespace ReportSystem.Interfaces
     public interface IInvestigationService
     {
         void CreateInvestigation(Investigation investigation);
+        List<Investigation> GetAllInvestigations();
     }
 }

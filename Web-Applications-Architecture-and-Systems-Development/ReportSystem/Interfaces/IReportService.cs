@@ -15,5 +15,6 @@ namespace ReportSystem.Interfaces
         Report GetReportById(int reportId);
         Task EditReport(Report report);
         Task DeleteReportId(int reportId);
+        
     }
 }

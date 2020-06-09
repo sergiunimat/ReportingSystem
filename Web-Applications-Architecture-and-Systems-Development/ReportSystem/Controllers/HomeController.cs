@@ -23,6 +23,7 @@ namespace ReportSystem.Controllers
         private readonly ICommentService _commentService;
         private readonly IReportStatus _reportStatus;
         private readonly ILikeService _likeService;
+        private readonly IHallOfFameService _fameService;
 
 
         public HomeController(
@@ -33,7 +34,8 @@ namespace ReportSystem.Controllers
                                 IHazardService hazardService,
                                 ICommentService commentService,
                                 IReportStatus reportStatus,
-                                ILikeService likeService
+                                ILikeService likeService,
+                                IHallOfFameService fameService
                                 )
         {
             _logger = logger;
@@ -44,11 +46,17 @@ namespace ReportSystem.Controllers
             _commentService = commentService;
             _reportStatus = reportStatus;
             _likeService = likeService;
+            _fameService = fameService;
         }
 
         
         public async Task<IActionResult> Index()
         {
+            /*I: get all the user with all reports and sort it */
+            var bestReporters = _fameService.GetBestReporters().OrderByDescending(o=>o.ReportsNumber);
+            var bestInvestigators = _fameService.GetBestInvestigators().OrderByDescending(o=>o.InvestigationNumber);
+            var reportWithMostComments = _fameService.GetReportWithMostComments().OrderByDescending(o=>o.ReportComments);
+            var reportWithMostLikes = _fameService.GetReportWithMostLikes().OrderByDescending(o=>o.ReportLikes);
             var listofReports = _reportService.GetAllReports();
             var user = await _userManager.GetUserAsync(HttpContext.User);
             string currentUserId;
@@ -80,8 +88,18 @@ namespace ReportSystem.Controllers
                     };
                     listDto.Add(r);
 
+
                 }
-                return View(listDto);
+                var passModel = new HomePageViewModel()
+                {
+                    BestInvestigators =  bestInvestigators.ToList(),
+                    BestReporterViewModels = bestReporters.ToList(),
+                    CommentsList = reportWithMostComments.ToList(),
+                    LikesList = reportWithMostLikes.ToList(),
+                    ReportViewModels = listDto
+
+                };
+                return View(passModel);
             }
 
 

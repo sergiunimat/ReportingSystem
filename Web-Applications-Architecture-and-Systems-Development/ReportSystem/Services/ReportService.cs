@@ -65,6 +65,12 @@ namespace ReportSystem.Services
             await _ctx.SaveChangesAsync();
         }
 
+        public List<string> GetTopFiveReporters()
+        {
+            return _ctx.Reports.GroupBy(r => r.ReportReporterId).OrderBy(rp => rp.Count()).Take(5).Select(r => r.Key)
+                .ToList();
+        }
+
 
     }
 }
