@@ -192,7 +192,9 @@ namespace ReportSystem.Controllers
                     ReportLatitude = report.ReportLatitude,
                     ReportLongitude = report.ReportLongitude,
                     Hazards = _hazardService.GetAllHazards(),
-                    ReportStatusId = report.ReportStatus
+                    ReportStatusId = report.ReportStatus,
+                    ReportRegisterTime = report.ReportRegisterTime
+
                     
                 };
                 return View(repToEdit);
@@ -225,7 +227,9 @@ namespace ReportSystem.Controllers
                     ReportLongitude = reportViewModel.ReportLongitude,
                     ReportReporterId = user.Id,
                     ReportHazardId = hazardId,
-                    ReportStatus = reportViewModel.ReportStatusId
+                    ReportStatus = reportViewModel.ReportStatusId,
+                    ReportRegisterTime = reportViewModel.ReportRegisterTime
+                    
                 };
                 await _reportService.EditReport(editReport);
             }

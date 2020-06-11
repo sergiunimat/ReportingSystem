@@ -14,7 +14,7 @@ namespace ReportSystem.ViewModels
     {
 
         public int ReportId { get; set; }
-        [StringLength(120, MinimumLength = 3)]
+        [StringLength(15, MinimumLength = 3)]
         [Required]
         public String ReportTitle { get; set; }
         [StringLength(600, MinimumLength = 12)]

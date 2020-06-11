@@ -88,7 +88,8 @@
             <div class="input-group mb-3" id="map" style="height:400px">
                 @*<button data-toggle="modal" data-target="#mapModal" class="btn btn-block shadow-animation" type="button"><img src="https://img.icons8.com/bubbles/40/000000/google-maps.png" /></button>*@
             </div>
-            <input hidden asp-for="ReportStatusId" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
+            <input hidden asp-for="ReportStatusId" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="" value="@Model.ReportStatusId">
+            <input hidden asp-for="ReportRegisterTime" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="" value="@Model.ReportRegisterTime">
             <input hidden asp-for="PicturePath" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
             <input hidden asp-for="ReportId" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
             <input hidden id="rLat" asp-for="ReportLatitude" type="text" class="form-control" aria-describedby="ReportAddress" placeholder="">
