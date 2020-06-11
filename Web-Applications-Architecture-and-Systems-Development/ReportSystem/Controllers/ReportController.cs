@@ -271,6 +271,7 @@ namespace ReportSystem.Controllers
             var report = _reportService.GetReportById(reportId);
             var currentUser =  await _userManager.GetUserAsync(HttpContext.User);
 
+            /*I: check if there are any reports - case where yes*/
             if (report != null)
             {
                 var listOfCommentsForReport = _commentService.GetAllCommentsByReportId(reportId);
@@ -294,6 +295,7 @@ namespace ReportSystem.Controllers
 
                 string currentUserId;
                 currentUserId = currentUser==null ? "" : currentUser.Id;
+                /*Check if an investigator is assinged to the report*/
                 if (report.ReportInvestigatorId != null)
                 {
                     var replikes = _likeService.GetAlLikesForReport(reportId).Count;
@@ -384,29 +386,61 @@ namespace ReportSystem.Controllers
                 else
                 {
                     var replikes = _likeService.GetAlLikesForReport(reportId).Count;
+                   
+                    /*I: check if the report has any likes*/
                     if (replikes != 0)
                     {
-                        var currentReport = new SpecificReportViewModel()
+                        if (User.Identity.IsAuthenticated)
                         {
-                            ReportId = report.ReportId,
-                            ReportTitle = report.ReportTitle,
-                            ReportDescription = report.ReportDescription,
-                            HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
-                            PicturePath = report.ReportPicturePath,
-                            ReportRegisterTime = report.ReportRegisterTime,
-                            ReportLongitude = report.ReportLongitude,
-                            ReportLatitude = report.ReportLatitude,
-                            ReportCommentList = commentListDto,
-                            CurrentUserId = currentUserId,
-                            ReporterId = report.ReportReporterId,
-                            ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
-                            ReportStausText = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName,
-                            //InvestigatorId = report.ReportInvestigatorId,
-                            InvestigatorName = "not assigned yet.",
-                            
-                            Liked = _likeService.GetLikeBasedOnReportIdAndUserId(reportId, currentUserId).Liked
-                        };
-                        return View(currentReport);
+                            var currentReport = new SpecificReportViewModel()
+                            {
+                                ReportId = report.ReportId,
+                                ReportTitle = report.ReportTitle,
+                                ReportDescription = report.ReportDescription,
+                                HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
+                                PicturePath = report.ReportPicturePath,
+                                ReportRegisterTime = report.ReportRegisterTime,
+                                ReportLongitude = report.ReportLongitude,
+                                ReportLatitude = report.ReportLatitude,
+                                ReportCommentList = commentListDto,
+                                CurrentUserId = currentUserId,
+                                ReporterId = report.ReportReporterId,
+                                ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
+                                ReportStausText = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName,
+                                //InvestigatorId = report.ReportInvestigatorId,
+                                InvestigatorName = "not assigned yet.",
+
+                                Liked = _likeService.GetLikeBasedOnReportIdAndUserId(reportId, currentUserId).Liked
+                            };
+
+                            return View(currentReport);
+                        }
+                        else
+                        {
+                            var currentReport = new SpecificReportViewModel()
+                            {
+                                ReportId = report.ReportId,
+                                ReportTitle = report.ReportTitle,
+                                ReportDescription = report.ReportDescription,
+                                HazardTitle = _hazardService.GetHazardTitleById(report.ReportHazardId),
+                                PicturePath = report.ReportPicturePath,
+                                ReportRegisterTime = report.ReportRegisterTime,
+                                ReportLongitude = report.ReportLongitude,
+                                ReportLatitude = report.ReportLatitude,
+                                ReportCommentList = commentListDto,
+                                CurrentUserId = currentUserId,
+                                ReporterId = report.ReportReporterId,
+                                ReporterName = _userManager.FindByIdAsync(report.ReportReporterId).Result.UserName,
+                                ReportStausText = _reportStatus.GetReportStatusById(report.ReportStatus).StatusName,
+                                //InvestigatorId = report.ReportInvestigatorId,
+                                InvestigatorName = "not assigned yet.",
+
+                                //Liked = _likeService.GetLikeBasedOnReportIdAndUserId(reportId, currentUserId).Liked
+                            };
+
+                            return View(currentReport);
+                        }
+                       
                     }
                     else
                     {
