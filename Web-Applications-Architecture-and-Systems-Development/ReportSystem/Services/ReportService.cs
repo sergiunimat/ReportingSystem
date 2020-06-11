@@ -51,11 +51,8 @@ namespace ReportSystem.Services
 
         public async Task EditReport(Report report)
         {
-           
-                _ctx.Reports.Update(report);
-                await _ctx.SaveChangesAsync();
-            
-
+            _ctx.Reports.Update(report);
+            await _ctx.SaveChangesAsync();
         }
 
         public async Task DeleteReportId(int reportId)

@@ -152,13 +152,14 @@ namespace ReportSystem.Controllers
             return RedirectToAction("Index");
         }
         [Authorize]
-        public IActionResult RemoveInvestigation(int reportId, int investigationId)
+        public async Task<IActionResult> RemoveInvestigation(int reportId, int investigationId)
         {
             _investigationService.RemoveInvestigation(investigationId);
+            
             var tempRep = _reportService.GetReportById(reportId);
             tempRep.ReportStatus = 1;
             tempRep.ReportInvestigatorId = null;
-            _reportService.EditReport(tempRep);
+           await _reportService.EditReport(tempRep);
             
             return RedirectToAction("Index","Home");
         }
