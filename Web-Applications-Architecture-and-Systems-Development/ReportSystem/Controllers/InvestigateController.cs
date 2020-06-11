@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ReportSystem.Interfaces;
 using ReportSystem.Models;
+using ReportSystem.Services;
 using ReportSystem.ViewModels;
 
 namespace ReportSystem.Controllers
@@ -22,6 +23,8 @@ namespace ReportSystem.Controllers
         private readonly IHazardService _hazardService;
         private readonly IReportStatus _reportStatus;
         private readonly IInvestigationService _investigationService;
+        private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
 
         public InvestigateController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -29,7 +32,9 @@ namespace ReportSystem.Controllers
             IReportService reportService,
             IHazardService hazardService,
             IReportStatus reportStatus,
-            IInvestigationService investigationService)
+            IInvestigationService investigationService,
+            IEmailService emailService,
+            IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,6 +43,8 @@ namespace ReportSystem.Controllers
             _hazardService = hazardService;
             _reportStatus = reportStatus;
             _investigationService = investigationService;
+            _emailService = emailService;
+            _userService = userService;
         }
         public async Task<IActionResult> Index()
         {
@@ -131,6 +138,12 @@ namespace ReportSystem.Controllers
                 alterRep.ReportStatus = model.InvestigationStatus;
                 alterRep.ReportInvestigatorId = model.InvestigatorId;
                 await _reportService.EditReport(alterRep);
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                var reporter = await _userManager.FindByIdAsync(alterRep.ReportReporterId);
+                var reporterEmail = _userService.GetUserEmail(reporter);
+
+
+                _emailService.SendEmail(reporter.Email, alterRep.ReportTitle + ", is assigned to a new investigation", user.UserName + EmailBodyContent.AssignInvestigationToReport+alterRep.ReportTitle);
                 return RedirectToAction("Index");
             }
             //2. if 1==success - alter the report (I) change status (II) add investigatorid to report

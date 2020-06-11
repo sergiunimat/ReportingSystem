@@ -18,13 +18,17 @@ namespace ReportSystem.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IUserService _userService;
         private readonly IAdminService _adminService;
+        private readonly IEmailService _emailService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IUserService userService,IAdminService adminService )
+        public AccountController(UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IUserService userService,IAdminService adminService,IEmailService emailService )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userService = userService;
             _adminService = adminService;
+            _emailService = emailService;
         }
         /*I: this controller deals with different account facilities.*/
         [HttpGet]
@@ -58,6 +62,7 @@ namespace ReportSystem.Controllers
 
                     /*we are sign in the user with a session cookie i.e. when browser is closed the cookie is destroyed*/
                     await _signInManager.SignInAsync(user,isPersistent:false);
+                    _emailService.SendEmail(user.Email,"Welcome",EmailBodyContent.Welcome);
                    return RedirectToAction("Index", "Home");
                 }
 

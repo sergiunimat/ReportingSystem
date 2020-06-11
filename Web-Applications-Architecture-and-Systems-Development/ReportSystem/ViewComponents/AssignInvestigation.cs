@@ -14,18 +14,22 @@ namespace ReportSystem.ViewComponents
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IReportService _reportService;
+        private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
 
-        public AssignInvestigation(UserManager<ApplicationUser> userManager, IReportService reportService)
+        public AssignInvestigation(UserManager<ApplicationUser> userManager, IReportService reportService, IEmailService emailService,IUserService userService)
         {
             _userManager = userManager;
             _reportService = reportService;
+            _emailService = emailService;
+            _userService = userService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int reportId)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var report = _reportService.GetReportById(reportId);
-
+           
             var investigation = new InvestigationViewModel()
             {
                 ReportId = report.ReportId,

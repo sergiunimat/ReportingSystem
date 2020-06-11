@@ -10,5 +10,6 @@ namespace ReportSystem.Interfaces
     {
         Task CreatePowerUserIfDoesNotExist();
         Task EditUser(ApplicationUser model);
+        string GetUserEmail(ApplicationUser userId);
     }
 }

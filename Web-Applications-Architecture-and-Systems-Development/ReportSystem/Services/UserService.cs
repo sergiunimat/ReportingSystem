@@ -53,5 +53,10 @@ namespace ReportSystem.Services
            
         }
 
+        public string GetUserEmail(ApplicationUser userId)
+        {
+            return _ctx.Users.FirstOrDefault(u => u.Id == userId.Id)?.Email;
+        }
+
     }
 }
