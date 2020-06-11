@@ -58,7 +58,7 @@ namespace ReportSystem.Controllers
 
                     /*we are sign in the user with a session cookie i.e. when browser is closed the cookie is destroyed*/
                     await _signInManager.SignInAsync(user,isPersistent:false);
-                   return RedirectToAction("LogedInIndex", "Home", new {userId = user.Id});
+                   return RedirectToAction("Index", "Home");
                 }
 
                 foreach (var err in result.Errors)
