@@ -66,9 +66,7 @@ namespace ReportSystem.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             string currentUserId;
             currentUserId = user == null ? "" : user.Id;
-            /*I: if there are*/
-            //if (listofReports.Count!=0 && listOfInvestigations.Count!=0)
-            //{
+           
                 var reportViewModelList = new List<ReportViewModel>();
                 foreach (var report in listofReports)
                 {
@@ -130,7 +128,7 @@ namespace ReportSystem.Controllers
 
             };
                 return View(passModel);
-            //}
+            
 
         }
         /*YOU DO NOT USE THIS FUNCTION APARENTLY*/

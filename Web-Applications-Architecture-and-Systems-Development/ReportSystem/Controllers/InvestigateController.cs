@@ -138,7 +138,7 @@ namespace ReportSystem.Controllers
 
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         public IActionResult RemoveInvestigation(int reportId, int investigationId)
         {
             _investigationService.RemoveInvestigation(investigationId);
@@ -147,7 +147,7 @@ namespace ReportSystem.Controllers
             tempRep.ReportInvestigatorId = null;
             _reportService.EditReport(tempRep);
             
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
         [Authorize]
         [HttpPost]

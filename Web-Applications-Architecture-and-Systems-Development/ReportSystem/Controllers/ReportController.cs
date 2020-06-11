@@ -23,6 +23,7 @@ namespace ReportSystem.Controllers
         private readonly ICommentService _commentService;
         private readonly IReportStatus _reportStatus;
         private readonly ILikeService _likeService;
+        private readonly IInvestigationService _investigationService;
 
         public ReportController(
             UserManager<ApplicationUser> userManager,
@@ -32,7 +33,8 @@ namespace ReportSystem.Controllers
             IHazardService hazardService,
             ICommentService commentService,
             IReportStatus reportStatus,
-            ILikeService likeService )
+            ILikeService likeService,
+            IInvestigationService investigationService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -42,6 +44,7 @@ namespace ReportSystem.Controllers
             _commentService = commentService;
             _reportStatus = reportStatus;
             _likeService = likeService;
+            _investigationService = investigationService;
         }
 
         public async Task<IActionResult> Index()
@@ -457,8 +460,15 @@ namespace ReportSystem.Controllers
 
         public async Task<IActionResult> DeleteReport(int reportId)
         {
+            var inv = await _investigationService.GetInvestigationByReporterId(reportId);
+            if (inv != null)
+            {
+                _investigationService.RemoveInvestigation(inv.InvestigationId);
+            }
             await _reportService.DeleteReportId(reportId);
-            return RedirectToAction("Index");
+            /*Once the report is deleted if there is any investigation on it delete it as well.*/
+           
+            return RedirectToAction("Index","Home");
         }
 
         [Authorize]

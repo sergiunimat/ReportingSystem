@@ -14,5 +14,7 @@ namespace ReportSystem.Interfaces
         void UpdateInvestigation(Investigation investigation);
         Investigation GetInvestigationById(int invId);
         List<Investigation> GetInvestigationsByReporterId(string invId);
+        Task<Investigation> GetInvestigationByReporterId(int reportId);
+        void RemoveInvestigationAsync(Investigation investigation);
     }
 }

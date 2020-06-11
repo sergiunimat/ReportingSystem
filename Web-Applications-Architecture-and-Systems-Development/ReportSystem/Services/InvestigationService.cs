@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using ReportSystem.Interfaces;
 using ReportSystem.Models;
@@ -40,11 +41,28 @@ namespace ReportSystem.Services
              return _ctx.Investigations.Where(i=>i.InvestigatorId== invId).ToList();
         }
 
+        //public Investigation GetInvestigationByReporterId(int reportId)
+        //{
+        //    return _ctx.Investigations.FirstOrDefault(inv => inv.ReportId == reportId);
+        //}
+
+        public async Task<Investigation> GetInvestigationByReporterId(int reportId)
+        {
+            return await _ctx.Investigations.Where(x => x.ReportId == reportId).FirstOrDefaultAsync();
+        }
+
+
         public void RemoveInvestigation(int investigationId)
         {
             var tempInv = GetInvestigationById(investigationId);
             _ctx.Investigations.Remove(tempInv);
             _ctx.SaveChanges();
+        }
+
+        public void RemoveInvestigationAsync(Investigation investigation)
+        {
+             _ctx.Remove(investigation);
+             _ctx.SaveChanges();
         }
 
         public void UpdateInvestigation(Investigation investigation)
