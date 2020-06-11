@@ -11,5 +11,6 @@ namespace ReportSystem.Interfaces
     {
         Task EditUser(EditUserViewModel userObj);
         Task DeleteUser(string userId);
+        void DelUser(string userId);
     }
 }

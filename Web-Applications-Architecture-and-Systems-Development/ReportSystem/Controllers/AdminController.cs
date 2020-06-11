@@ -48,9 +48,11 @@ namespace ReportSystem.Controllers
         }
 
 
-        public async Task<IActionResult> DeleteUserAsync(string userId)
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser(string userId)
         {
             await _adminService.DeleteUser(userId);
+            //_adminService.DeleteUser(userId);
             return RedirectToAction("Users");
         }
     }

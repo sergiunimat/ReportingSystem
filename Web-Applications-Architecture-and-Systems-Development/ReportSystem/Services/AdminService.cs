@@ -16,12 +16,14 @@ namespace ReportSystem.Services
         private readonly RoleManager<IdentityRole> _roleMancager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _ctx;
+        private readonly IUserService _userService;
 
-        public AdminService(RoleManager<IdentityRole> roleMancager, UserManager<ApplicationUser> userManager, ApplicationDbContext ctx)
+        public AdminService(RoleManager<IdentityRole> roleMancager, UserManager<ApplicationUser> userManager, ApplicationDbContext ctx, IUserService userService)
         {
             _roleMancager = roleMancager;
             _userManager = userManager;
             _ctx = ctx;
+            _userService = userService;
         }
         public async Task EditUser(EditUserViewModel userObj)
         {
@@ -59,6 +61,16 @@ namespace ReportSystem.Services
             {
                 _ctx.Users.Remove(user);
                 await _ctx.SaveChangesAsync();
+            }
+        }
+
+        public void DelUser(string userId)
+        {
+            var user = _ctx.Users.FirstOrDefault(u => u.Id == userId);
+            if (user!=null)
+            {
+                _ctx.Users.Remove(user);
+                _ctx.SaveChanges();
             }
         }
     }
