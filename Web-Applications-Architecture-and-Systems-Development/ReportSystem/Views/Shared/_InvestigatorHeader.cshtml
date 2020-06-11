@@ -15,7 +15,18 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Report" asp-action="Index">Reports</a>
+                        @*<a class="nav-link text-dark" asp-area="" asp-controller="Report" asp-action="Index">Reports</a>*@
+                        <div class="btn-group">
+                            <a style="outline: none; box-shadow: none" type="button" class="btn" asp-controller="Report" asp-action="Index">Reports</a>
+                            <button style="outline: none; box-shadow: none" type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                <a class="dropdown-item" asp-controller="Report" asp-action="CreateReport">Create Report</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-controller="Report" asp-action="OwnReports">View Own Reports</a>
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Investigate" asp-action="index">Investigations</a>
