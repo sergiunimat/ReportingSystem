@@ -34,6 +34,11 @@ namespace ReportSystem.Services
             return _ctx.Likes.FirstOrDefault(l => l.ReportId == reportId && l.UserId == userId);
         }
 
+        public bool CheckIfLikeExists(int reportId, string userId)
+        {
+            return _ctx.Likes.Any(l => l.ReportId == reportId && l.UserId == userId);
+        }
+
         public List<Like> GetAlLikesForReport(int reportId)
         {
             return _ctx.Likes.Where(l => l.ReportId==reportId && l.Liked==true).ToList();

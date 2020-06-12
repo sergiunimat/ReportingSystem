@@ -13,5 +13,6 @@ namespace ReportSystem.Interfaces
         Like GetLikeBasedOnReportIdAndUserId(int reportId, string userId);
         List<Like> GetAlLikesForReport(int reportId);
         List<Like> GetAllLikesByReporterId(string userId);
+        bool CheckIfLikeExists(int reportId, string userId);
     }
 }

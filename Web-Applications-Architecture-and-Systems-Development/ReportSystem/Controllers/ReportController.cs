@@ -386,12 +386,15 @@ namespace ReportSystem.Controllers
                 else
                 {
                     var replikes = _likeService.GetAlLikesForReport(reportId).Count;
-                   
+                    
+
                     /*I: check if the report has any likes*/
                     if (replikes != 0)
                     {
                         if (User.Identity.IsAuthenticated)
                         {
+                            bool liked = _likeService.CheckIfLikeExists(reportId, currentUserId);
+
                             var currentReport = new SpecificReportViewModel()
                             {
                                 ReportId = report.ReportId,
@@ -410,7 +413,7 @@ namespace ReportSystem.Controllers
                                 //InvestigatorId = report.ReportInvestigatorId,
                                 InvestigatorName = "not assigned yet.",
 
-                                Liked = _likeService.GetLikeBasedOnReportIdAndUserId(reportId, currentUserId).Liked
+                                Liked = liked
                             };
 
                             return View(currentReport);

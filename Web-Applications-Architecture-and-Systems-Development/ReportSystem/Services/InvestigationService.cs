@@ -41,10 +41,7 @@ namespace ReportSystem.Services
              return _ctx.Investigations.Where(i=>i.InvestigatorId== invId).ToList();
         }
 
-        //public Investigation GetInvestigationByReporterId(int reportId)
-        //{
-        //    return _ctx.Investigations.FirstOrDefault(inv => inv.ReportId == reportId);
-        //}
+ 
 
         public async Task<Investigation> GetInvestigationByReporterId(int reportId)
         {
