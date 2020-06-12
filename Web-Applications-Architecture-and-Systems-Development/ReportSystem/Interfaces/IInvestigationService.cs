@@ -16,5 +16,6 @@ namespace ReportSystem.Interfaces
         List<Investigation> GetInvestigationsByReporterId(string invId);
         Task<Investigation> GetInvestigationByReporterId(int reportId);
         void RemoveInvestigationAsync(Investigation investigation);
+        bool CheckIfInvestigatorIsActive(string investigatorId);
     }
 }

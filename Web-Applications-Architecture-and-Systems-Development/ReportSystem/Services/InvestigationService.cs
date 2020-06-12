@@ -65,6 +65,12 @@ namespace ReportSystem.Services
              _ctx.SaveChanges();
         }
 
+        public bool CheckIfInvestigatorIsActive(string investigatorId)
+        {
+            return  _ctx.Investigations.Any(i => i.InvestigatorId == investigatorId);
+            
+        }
+
         public void UpdateInvestigation(Investigation investigation)
         {
             _ctx.Update(investigation);

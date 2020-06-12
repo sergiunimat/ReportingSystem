@@ -111,10 +111,10 @@
             if (Model.CurrentUserId == comment.UserId)
             {
                 <div class="card w-100 mb-4">
-                    <div class="card-header">
+                    <div class="card-header bg-success">
                         @comment.CommentCreateDate
-                        <button class="btn shadow-animation float-right">Edit</button>
-                        <button class="btn shadow-animation float-right">Delete</button>
+                        <p class="h5 float-right">You</p>
+                        
                     </div>
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
@@ -197,9 +197,6 @@
 
             complete: function (result) {
                 console.log(result.responseText);
-
-                //var x = document.getElementById("modelompany");
-                //x.style.display = "block";
                 $("#commentSectionId").html(result.responseText);
 
             }

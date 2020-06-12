@@ -6,7 +6,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+        <a  class="nav-link text-dark"  title="Manage">Hello @User.Identity.Name!</a>
     </li>
     /*I: change the asp-action & controller to have your own logout*/
     <li class="nav-item">
